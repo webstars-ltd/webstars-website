@@ -1,0 +1,110 @@
+---
+import { linkFinder, toSentenceCase } from '@lib/helpers';
+import { storyblokApi } from '@lib/api';
+import type { MenuLinkItem } from '@lib/types';
+
+const { data } = await storyblokApi('cdn/stories/global', {
+  resolve_links: 'url',
+});
+const links = data.links;
+const contactDetails = data.story?.content?.contact_details[0];
+const socialLinks = data.story?.content?.social_links;
+---
+
+<footer
+  class="pb-40 pt-20 bg-gradient-to-br from-brand-primary-900 via-brand-secondary-900 to-brand-gray-900 text-white text-[15px] leading-snug font-light"
+>
+  <div class="ws-container">
+    <img
+      src="/ws logo white.png"
+      alt="webstars ltd company logo"
+      class="max-w-40"
+    />
+
+    <div class="grid mt-16 gap-10 sm:grid-cols-12">
+      <div class="col-span-5">
+        <blockquote class="flex flex-col gap-12">
+          <p class="text-3xl font-serif italic leading-9 tracking-[0.275px]">
+            "Your professionalism, knowledge, and ease have made the
+            collaboration delightful."
+          </p>
+          <cite class="not-italic text-base font-semibold">
+            Sophia Boutalbi, International Group of P&I Clubs
+          </cite>
+        </blockquote>
+      </div>
+
+      <div class="col-span-7">
+        <div class="flex flex-col gap-5">
+          <div class="flex flex-col sm:flex-row gap-10">
+            <aside class="">
+              <header class="">Find Us</header>
+              <address class="mb-5 not-italic">
+                {
+                  contactDetails.headquarters_address
+                    .split(',')
+                    .map((line: string) => (
+                      <>
+                        {line}
+                        <br />
+                      </>
+                    ))
+                }
+              </address>
+            </aside>
+
+            <div class="pr-5">
+              <h4>Contact Us</h4>
+              <p class="">
+                <a
+                  href={`tel:${contactDetails.phone_number}`}
+                  class="link link-primary">{contactDetails.phone_number}</a
+                >
+              </p>
+              <p class="">
+                <a
+                  href={`mailto:${contactDetails.email_address}`}
+                  class="link link-primary">{contactDetails.email_address}</a
+                >
+              </p>
+              <p class="">
+                <a
+                  href={`mailto:${contactDetails.email_address_alt}`}
+                  class="link link-primary"
+                  >{contactDetails.email_address_alt}</a
+                >
+              </p>
+            </div>
+
+            <div>
+              <h4>Follow Us</h4>
+              <nav>
+                {
+                  socialLinks.map((link: MenuLinkItem) => (
+                    <a
+                      href={linkFinder(link.link, links)}
+                      class="link link-hover block"
+                    >
+                      {toSentenceCase(link.link_text)}
+                    </a>
+                  ))
+                }
+              </nav>
+            </div>
+          </div>
+
+          <div class="flex flex-row gap-4">
+            <p class="">&copy; Webstars 2024</p>
+            <p>
+              <a
+                href="https://platform.illow.io/#/policy/cookie/985708de-addb-4d38-94b8-90e3700b80a5"
+                target="_blank">Privacy &amp; Cookies</a
+              >
+            </p>
+            <p><a href="/terms" target="_blank">T&amp;Cs</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>

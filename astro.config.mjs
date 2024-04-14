@@ -39,6 +39,8 @@ export default defineConfig({
         page: 'components/storyblok/page',
         'rich-text': 'components/storyblok/rich-text',
         grid: 'components/storyblok/grid',
+        divider: 'components/storyblok/divider',
+        'image-item': 'components/storyblok/image-item',
       },
       apiOptions: {
         region: 'eu',

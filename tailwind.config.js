@@ -2,20 +2,29 @@
 const defaultTheme = require('tailwindcss/defaultTheme');
 
 export default {
-	content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
-	theme: {
-		fontSize: {
+  content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
+  safelist: [
+    {
+      pattern: /py-\b([1-9]|[12][0-9]|20)\b/gi,
+    },
+    {
+      pattern: /columns-\b([1-9]|10)\b/gi,
+    },
+  ],
+  theme: {
+    fontSize: {
       ...defaultTheme.fontSize,
     },
-		extend: {
-		  fontFamily: {
+    extend: {
+      fontFamily: {
         sans: ['Poppins', ...defaultTheme.fontFamily.sans],
-        poppins: ['Poppins', ...defaultTheme.fontFamily.sans]
+        poppins: ['Poppins', ...defaultTheme.fontFamily.sans],
         headings: ['Bitter', ...defaultTheme.fontFamily.serif],
         bitter: ['Bitter', ...defaultTheme.fontFamily.serif],
         base: [...defaultTheme.fontFamily.sans],
       },
       maxWidth: {
+        '5.5xl': '67rem',
         '8xl': '90rem',
         '9xl': '100rem',
       },
@@ -23,6 +32,7 @@ export default {
         brand: {
           primary: {
             900: '#329999',
+            500: '#63adad',
           },
           secondary: {
             900: '#294f82',
@@ -33,6 +43,7 @@ export default {
             100: '#ababab',
           },
           gray: {
+            900: '#393939',
             800: '#6F6D6F',
             700: '#818081',
             600: '#939293',
@@ -43,7 +54,7 @@ export default {
             100: '#EDEDED',
           },
         },
-		  },
+      },
       typography: (theme) => ({
         DEFAULT: {
           css: {
@@ -56,11 +67,8 @@ export default {
             },
           },
         },
-      }
-    ),
-	},
-	plugins: [
-    require('@tailwindcss/typography'),
-    require('@tailwindcss/forms'),
-  ],
-}
+      }),
+    },
+  },
+  plugins: [require('@tailwindcss/typography'), require('@tailwindcss/forms')],
+};

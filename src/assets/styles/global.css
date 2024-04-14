@@ -8,7 +8,7 @@
 @layer base {
   html,
   body {
-    @apply font-sans font-normal text-lg text-brand-secondary-900 md:leading-relaxed;
+    @apply font-sans font-normal text-base text-brand-secondary-900 md:leading-relaxed;
   }
 
   h1,
@@ -21,12 +21,12 @@
 
   h1,
   .heading-1 {
-    @apply text-5xl font-bold drop-shadow;
+    @apply text-4xl font-[500];
   }
 
   h2,
   .heading-2 {
-    @apply text-3xl font-bold drop-shadow-sm;
+    @apply text-3xl;
   }
 
   h3,
@@ -49,16 +49,28 @@
     @apply text-base;
   }
 
+  a {
+    @apply hover:text-brand-primary-500 transition-colors duration-500 ease-linear;
+  }
+
   .ws-container {
-    @apply mx-auto px-4 max-w-7xl;
+    @apply mx-auto px-4 max-w-5.5xl;
   }
 
   .ws-container .ws-container {
     @apply px-0;
   }
+
+  .tagline {
+    @apply heading-1 text-brand-primary-900 font-semibold;
+  }
 }
 
 @layer components {
+  footer h4,
+  footer header {
+    @apply text-3xl font-bold font-sans mb-8;
+  }
 }
 
 @layer utilities {

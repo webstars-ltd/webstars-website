@@ -29,13 +29,18 @@ const { data } = await getStoryblokPageData({
 const publishedDate = data.first_published_at ?? data.story.created_at;
 const updatedDate = data.story.published_at ?? data.story.created_at;
 const isArticle = data.story.component === 'article';
+const metaFields = {
+  title: data.story.content.meta_title ?? data.story.content.title,
+  description:
+    data.story.content.meta_description ?? data.story.content.tagline,
+};
 
 if (isArticle) {
   // Construct article SEO data
   articleMeta = {
     publishedTime: publishedDate,
     modifiedTime: updatedDate,
-    section: 'Directory listing',
+    section: 'Blog articles',
     authors: [data.story?.content?.author?.content?.name],
     tags: data.story.content.categories ?? [],
   };
@@ -46,7 +51,7 @@ if (isArticle) {
   <SEOMeta
     slot="seo-tags"
     type={isArticle ? 'article' : 'page'}
-    metaFields={data.story.content.meta_fields}
+    metaFields={metaFields}
     articleFields={articleMeta}
   />
 

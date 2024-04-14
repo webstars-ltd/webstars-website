@@ -1,0 +1,19 @@
+---
+import type { ComponentProps, SbAsset } from '@lib/types';
+import { storyblokEditable } from '@storyblok/astro';
+
+const { blok } = Astro.props as ComponentProps;
+
+// const isCarousel = blok.carousel_mode ?? false;
+const image: SbAsset = blok?.image as SbAsset;
+
+// image
+---
+
+<figure class="" {...storyblokEditable(blok)}>
+  <img
+    src={`${image.filename}`}
+    alt={image.alt}
+    class="w-full h-full object-contain"
+  />
+</figure>
