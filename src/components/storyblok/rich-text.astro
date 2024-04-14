@@ -1,0 +1,27 @@
+---
+import type { ComponentProps } from '@lib/types';
+import {
+  renderRichText,
+  storyblokEditable,
+  type ISbRichtext,
+} from '@storyblok/astro';
+
+const { blok } = Astro.props as ComponentProps;
+
+const renderedRichText = renderRichText(blok.text as ISbRichtext);
+
+// text
+// center_text
+// invert_text_colour
+// html_id
+---
+
+<div
+  id={blok?.html_id?.toString() ?? ''}
+  class={`ws-container prose prose-lg max-w-none ${blok?.center_text ? 'text-center' : ''} ${blok?.invert_text_colour ? 'text-white prose-invert' : ''}`}
+  set:html={renderedRichText}
+  data-html-id={blok?.html_id?.toString() !== ''
+    ? blok?.html_id?.toString()
+    : undefined}
+  {...storyblokEditable(blok)}
+/>

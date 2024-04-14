@@ -1,0 +1,55 @@
+---
+import { type SbBlokData } from '@storyblok/astro';
+import type { ComponentProps } from '@lib/types';
+import { isMap } from '@lib/helpers';
+import {
+  storyblokEditable,
+  renderRichText,
+  type ISbRichtext,
+} from '@storyblok/astro';
+import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro';
+
+const {
+  blok,
+  links = [],
+  pageSlug,
+  isHomePage,
+} = Astro.props as ComponentProps;
+
+let header: SbBlokData[] = [];
+let body: SbBlokData[] = [];
+
+if (blok.header && isMap<SbBlokData>(blok.header)) header = blok.header;
+if (blok.body && isMap<SbBlokData>(blok.body)) body = blok.body;
+---
+
+<header {...storyblokEditable(blok)}>
+  {
+    header?.map((blok: any) => {
+      return (
+        <StoryblokComponent
+          blok={blok}
+          pageSlug={pageSlug}
+          isHomePage={isHomePage}
+        />
+      );
+    })
+  }
+</header>
+
+{
+  blok.content && (
+    <div
+      class="prose prose-lg max-w-4xl px-4 mx-auto"
+      set:html={renderRichText(blok.content as ISbRichtext)}
+    />
+  )
+}
+
+<div {...storyblokEditable(blok)}>
+  {
+    body?.map((blok: any) => {
+      return <StoryblokComponent blok={blok} links={links} />;
+    })
+  }
+</div>

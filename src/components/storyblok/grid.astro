@@ -1,0 +1,60 @@
+---
+import { type SbBlokData } from '@storyblok/astro';
+import type { ComponentProps } from '@lib/types';
+import { isMap } from '@lib/helpers';
+import { storyblokEditable } from '@storyblok/astro';
+import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro';
+
+const { blok, links = [] } = Astro.props as ComponentProps;
+const spacing =
+  blok.vertical_spacing || blok.vertical_spacing !== ''
+    ? blok.vertical_spacing
+    : 'py-16';
+let gridColumns = 'sm:grid-cols-3';
+
+switch (Number(blok.column_count ?? 3)) {
+  case 1:
+    gridColumns = 'sm:grid-cols-1';
+    break;
+  case 2:
+    gridColumns = 'sm:grid-cols-2';
+    break;
+  case 4:
+    gridColumns = 'sm:grid-cols-4';
+    break;
+  default:
+    break;
+}
+
+let blocks: SbBlokData[] = [];
+
+if (blok.blocks && isMap<SbBlokData>(blok.blocks)) blocks = blok.blocks;
+
+// column_count
+// blocks
+// vertical_spacing
+// title
+// intro
+---
+
+<section class={`${spacing}`} {...storyblokEditable(blok)}>
+  {
+    blok.title && (
+      <div class="ws-container text-center mb-16 space-y-2">
+        <h2>{blok.title}</h2>
+        {blok.intro && <p class="text-lg">{blok.intro}</p>}
+      </div>
+    )
+  }
+  <div
+    class={`ws-container grid grid-cols-1 content-stretch gap-6 ${gridColumns} ${blok.styling_classes}`}
+  >
+    {
+      blocks?.map((block: any) => (
+        <div class="">
+          <StoryblokComponent blok={block} links={links} />
+        </div>
+      ))
+    }
+  </div>
+</section>

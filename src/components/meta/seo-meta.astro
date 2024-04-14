@@ -1,0 +1,67 @@
+---
+import { SEO, type Props as MetaProps } from 'astro-seo';
+import type { MetaFields, ArticleMetaFields } from '@lib/types';
+import defaults from '@data/defaults.json';
+
+interface Props {
+  type: 'page' | 'article';
+  metaFields: MetaFields;
+  articleFields?: ArticleMetaFields;
+}
+
+const meta = defaults.meta;
+const { type = 'page', metaFields, articleFields } = Astro.props;
+const ogType = type === 'page' ? 'website' : 'article';
+const title = metaFields?.title ?? meta.titleDefault;
+const description = metaFields?.description ?? meta.siteDescription;
+const image = metaFields?.og_image ?? meta.siteImage;
+const imageAlt = metaFields?.og_image ? '' : meta.siteImageAlt;
+
+const seoProps: MetaProps = {
+  title: title,
+  titleDefault: meta.titleDefault,
+  titleTemplate: meta.titleTemplate,
+  canonical: Astro.url.href,
+  description,
+  openGraph: {
+    basic: {
+      type: ogType,
+      title: metaFields?.og_title ?? title,
+      image, // social media preview
+    },
+    optional: {
+      locale: 'en_GB',
+      siteName: meta.siteName,
+      description: metaFields?.og_description ?? description,
+    },
+    image: {
+      alt: imageAlt,
+    },
+  },
+  twitter: {
+    card: 'summary_large_image',
+    site: '@twitter_handle_here', // TODO:! Need to add ALPHA social stuff here
+    creator: '@kendalmintcode',
+    title: metaFields?.twitter_title ?? title,
+    description: metaFields?.twitter_description ?? description,
+    image: metaFields?.twitter_image ?? image,
+    imageAlt,
+  },
+};
+
+if (
+  type === 'article' &&
+  seoProps.openGraph !== undefined &&
+  articleFields !== undefined
+) {
+  seoProps.openGraph.article = {
+    publishedTime: articleFields.publishedTime,
+    modifiedTime: articleFields.modifiedTime,
+    authors: articleFields.authors,
+    section: articleFields.section,
+    tags: articleFields.tags,
+  };
+}
+---
+
+<SEO slot="seo-tags" {...seoProps} />

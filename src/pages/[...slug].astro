@@ -1,0 +1,64 @@
+---
+import {
+  getStaticPageParams,
+  getStoryblokPageData,
+  isPageNotFound,
+} from '@lib/api';
+import type { ArticleMetaFields } from '@lib/types';
+import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro';
+import BaseLayout from '@layouts/base-layout.astro';
+import SEOMeta from '@components/meta/seo-meta.astro';
+
+export async function getStaticPaths() {
+  return await getStaticPageParams();
+}
+
+const { slug = 'home' } = Astro.params;
+const isHomePage = slug === 'home';
+let articleMeta: ArticleMetaFields = {};
+
+if (await isPageNotFound(slug, { starts_with: slug }))
+  return Astro.redirect('/404');
+
+const { data } = await getStoryblokPageData({
+  slug,
+  resolution: 'url',
+  relations: [],
+});
+
+const publishedDate = data.first_published_at ?? data.story.created_at;
+const updatedDate = data.story.published_at ?? data.story.created_at;
+const isArticle = data.story.component === 'article';
+
+if (isArticle) {
+  // Construct article SEO data
+  articleMeta = {
+    publishedTime: publishedDate,
+    modifiedTime: updatedDate,
+    section: 'Directory listing',
+    authors: [data.story?.content?.author?.content?.name],
+    tags: data.story.content.categories ?? [],
+  };
+}
+---
+
+<BaseLayout>
+  <SEOMeta
+    slot="seo-tags"
+    type={isArticle ? 'article' : 'page'}
+    metaFields={data.story.content.meta_fields}
+    articleFields={articleMeta}
+  />
+
+  <Fragment slot="main">
+    <StoryblokComponent
+      blok={data.story.content}
+      links={data.links}
+      publishedDate={publishedDate}
+      updatedDate={updatedDate}
+      id={data.story.id}
+      pageSlug={slug}
+      isHomePage={isHomePage}
+    />
+  </Fragment>
+</BaseLayout>

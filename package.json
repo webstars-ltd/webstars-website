@@ -1,0 +1,43 @@
+{
+  "name": "webstars-ltd-website",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "PUBLIC_ENV=development astro dev",
+    "start": "astro dev",
+    "build:production": "PUBLIC_ENV=production astro check && astro build",
+    "build:preview": "PUBLIC_ENV=preview astro check && astro build",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.5.10",
+    "@astrojs/netlify": "^5.2.0",
+    "@astrojs/sitemap": "^3.1.1",
+    "@astrojs/svelte": "^5.2.0",
+    "@astrojs/tailwind": "^5.1.0",
+    "@storyblok/astro": "^4.0.4",
+    "@storyblok/js": "^3.0.7",
+    "@tailwindcss/forms": "^0.5.7",
+    "@tailwindcss/typography": "^0.5.10",
+    "astro": "^4.5.9",
+    "astro-robots-txt": "^1.0.0",
+    "astro-seo": "^0.8.3",
+    "date-fns": "^3.6.0",
+    "dotenv": "^16.4.5",
+    "storyblok-js-client": "^6.7.1",
+    "svelte": "^4.2.12",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5.4.3",
+    "vite": "^5.2.6"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-basic-ssl": "^1.1.0",
+    "autoprefixer": "^10.4.19",
+    "cssnano": "^6.1.2",
+    "postcss": "^8.4.38",
+    "postcss-import": "^16.1.0",
+    "postcss-nesting": "^12.1.0"
+  }
+}

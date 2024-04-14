@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i');
+@import url('https://fonts.googleapis.com/css?family=Bitter:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html,
+  body {
+    @apply font-sans font-normal text-lg text-brand-secondary-900 md:leading-relaxed;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    @apply font-headings;
+  }
+
+  h1,
+  .heading-1 {
+    @apply text-5xl font-bold drop-shadow;
+  }
+
+  h2,
+  .heading-2 {
+    @apply text-3xl font-bold drop-shadow-sm;
+  }
+
+  h3,
+  .heading-3 {
+    @apply text-2xl font-semibold;
+  }
+
+  h4,
+  .heading-4 {
+    @apply text-xl;
+  }
+
+  h5,
+  .heading-5 {
+    @apply text-lg;
+  }
+
+  h6,
+  .heading-6 {
+    @apply text-base;
+  }
+
+  .ws-container {
+    @apply mx-auto px-4 max-w-7xl;
+  }
+
+  .ws-container .ws-container {
+    @apply px-0;
+  }
+}
+
+@layer components {
+}
+
+@layer utilities {
+}
