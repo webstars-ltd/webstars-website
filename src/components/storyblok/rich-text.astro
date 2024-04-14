@@ -13,12 +13,12 @@ const renderedRichText = renderRichText(blok.text as ISbRichtext);
 // text
 // center_text
 // invert_text_colour
-// html_id
+// styling_classes
 ---
 
 <div
   id={blok?.html_id?.toString() ?? ''}
-  class={`ws-container prose prose-lg max-w-none ${blok?.center_text ? 'text-center' : ''} ${blok?.invert_text_colour ? 'text-white prose-invert' : ''}`}
+  class={`ws-container prose prose-lg max-w-none ${blok?.center_text ? 'text-center' : ''} ${blok?.invert_text_colour ? 'text-white prose-invert' : ''} ${blok?.styling_classes}`}
   set:html={renderedRichText}
   data-html-id={blok?.html_id?.toString() !== ''
     ? blok?.html_id?.toString()

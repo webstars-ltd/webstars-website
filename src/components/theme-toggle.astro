@@ -1,0 +1,43 @@
+---
+
+---
+
+<button
+  id="btnToggleTheme"
+  class="fixed bottom-0 right-5 bg-white text-black border border-1 p-5 text-sm hover:bg-brand-primary-500"
+  >toggle theme</button
+>
+
+<script>
+  const btnToggleTheme = document.getElementById('btnToggleTheme');
+
+  if (btnToggleTheme) {
+    btnToggleTheme.addEventListener('click', toggleTheme);
+  }
+
+  window.addEventListener('load', () => {
+    if (
+      localStorage.theme === 'dark' ||
+      (!('theme' in localStorage) &&
+        window.matchMedia('(prefers-color-scheme: dark)').matches)
+    ) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+
+    if (!('theme' in localStorage)) {
+      localStorage.setItem('theme', 'light');
+    }
+  });
+
+  function toggleTheme() {
+    if (localStorage.getItem('theme') === 'dark') {
+      document.documentElement.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
+    } else {
+      document.documentElement.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+    }
+  }
+</script>

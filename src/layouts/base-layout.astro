@@ -9,6 +9,7 @@ import Icons from '@components/meta/icons.astro';
 import Scripts from '@components/global/scripts.astro';
 import MainNav from '@components/navigation/main-nav.astro';
 import Footer from '@components/global/footer.astro';
+import ThemeToggle from '@components/theme-toggle.astro';
 
 const { data } = await storyblokApi('cdn/stories/global', {
   resolve_links: 'url',
@@ -27,13 +28,14 @@ const mainMenu: Array<MenuLinkItem> = data.story?.content?.main_menu;
 
     <slot name="schema" />
   </head>
-  <body class="overscroll-none">
+  <body class="overscroll-none scroll-smooth">
     <header>
       <MainNav mainMenuItems={mainMenu} links={links} />
     </header>
-    <main>
+    <main class="pt-72">
       <slot name="main" />
     </main>
     <Footer />
+    <ThemeToggle />
   </body>
 </html>

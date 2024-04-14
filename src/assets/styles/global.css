@@ -71,6 +71,12 @@
   footer header {
     @apply text-3xl font-bold font-sans mb-8;
   }
+
+  .ws-home-page-intro {
+    h2 {
+      @apply font-sans font-semibold text-4.25xl text-brand-dark-500 leading-11;
+    }
+  }
 }
 
 @layer utilities {

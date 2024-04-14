@@ -2,6 +2,7 @@
 const defaultTheme = require('tailwindcss/defaultTheme');
 
 export default {
+  darkMode: 'selector',
   content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
   safelist: [
     {
@@ -9,6 +10,9 @@ export default {
     },
     {
       pattern: /columns-\b([1-9]|10)\b/gi,
+    },
+    {
+      pattern: /ws-*/gi,
     },
   ],
   theme: {
@@ -28,8 +32,23 @@ export default {
         '8xl': '90rem',
         '9xl': '100rem',
       },
+      fontSize: {
+        '4.25xl': '2.5rem',
+        '5.25xl': '3.25rem',
+        '5.5xl': '3.5rem',
+      },
+      lineHeight: {
+        11: '3rem',
+        12: '3.5rem',
+        13: '4rem',
+        14: '4.5rem',
+        15: '5rem',
+      },
       colors: {
         brand: {
+          black: {
+            800: '#2d2d2d',
+          },
           primary: {
             900: '#329999',
             500: '#63adad',

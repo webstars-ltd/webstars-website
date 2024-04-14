@@ -1,17 +1,67 @@
 ---
+import { linkFinder, toSentenceCase } from '@lib/helpers';
+import { storyblokApi } from '@lib/api';
+import type { MenuLinkItem } from '@lib/types';
 
+const { data } = await storyblokApi('cdn/stories/global', {
+  resolve_links: 'url',
+});
+const links = data.links;
+const mainMenu = data.story?.content?.main_menu;
 ---
 
-<nav>
-  <img
-    src="/ws logo white.png"
-    alt="webstars ltd company logo"
-    class="max-w-40 hidden dark:block"
-  />
+<div
+  id="main-nav"
+  class="fixed bg-white pt-12 w-full top-0 left-0 z-50 transition-all duration-[0.2s] delay-0 ease-in shadow-gray-100"
+>
+  <div class="ws-container">
+    <div class="flex flex-row justify-between items-center">
+      <div>
+        <img
+          src="/ws logo white.png"
+          alt="webstars ltd company logo"
+          class="max-w-40 hidden dark:block"
+        />
 
-  <img
-    src="/ws logo grey.png"
-    alt="webstars ltd company logo"
-    class="max-w-40 dark:hidden"
-  />
-</nav>
+        <img
+          src="/ws logo grey.png"
+          alt="webstars ltd company logo"
+          class="max-w-40 dark:hidden"
+        />
+      </div>
+
+      <nav class="flex flex-row gap-5">
+        {
+          mainMenu.map((link: MenuLinkItem) => (
+            <a
+              href={linkFinder(link.link, links)}
+              class="text-brand-dark-100 text-[15px] font-semibold tracking-[0.2px] font-headings hover:text-brand-black-800 transition-colors duration-150"
+            >
+              {toSentenceCase(link.link_text)}
+            </a>
+          ))
+        }
+      </nav>
+    </div>
+  </div>
+</div>
+
+<script>
+  const nav = document.getElementById('main-nav');
+
+  window.addEventListener('scroll', () => {
+    const scrollPosition = window.scrollY,
+      narrowNavPosition = 100;
+
+    if (nav) {
+      if (scrollPosition >= narrowNavPosition) {
+        nav.classList.remove('pt-12');
+        nav.classList.add('py-3', 'shadow-md');
+      } else {
+        nav.classList.add('pt-12');
+        nav.classList.remove('shadow-md');
+        nav.classList.remove('py-3');
+      }
+    }
+  });
+</script>

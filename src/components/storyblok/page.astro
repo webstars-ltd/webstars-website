@@ -4,6 +4,7 @@ import type { ComponentProps } from '@lib/types';
 import { isMap } from '@lib/helpers';
 import { storyblokEditable } from '@storyblok/astro';
 import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro';
+import GlobalCta from './global-cta.astro';
 
 const {
   blok,
@@ -24,9 +25,9 @@ if (blok.body && isMap<SbBlokData>(blok.body)) body = blok.body;
 // body (blocks)
 ---
 
-<header {...storyblokEditable(blok)}>
-  <h1 class="text-center">{blok.title}</h1>
-  <p class="text-center tagline">{blok.tagline}</p>
+<header class="pb-16" {...storyblokEditable(blok)}>
+  <h1 class="text-center text-5.5xl leading-13">{blok.title}</h1>
+  <p class="text-center tagline text-5.25xl leading-13">{blok.tagline}</p>
 </header>
 
 <div class="ws-container" {...storyblokEditable(blok)}>
@@ -35,4 +36,8 @@ if (blok.body && isMap<SbBlokData>(blok.body)) body = blok.body;
       return <StoryblokComponent blok={blok} links={links} />;
     })
   }
+</div>
+
+<div class="ws-container">
+  <GlobalCta />
 </div>
