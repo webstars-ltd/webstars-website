@@ -14,11 +14,22 @@ const renderedRichText = renderRichText(blok.text as ISbRichtext);
 // center_text
 // invert_text_colour
 // styling_classes
+// use_serif_font
 ---
 
 <div
   id={blok?.html_id?.toString() ?? ''}
-  class={`ws-container prose prose-lg max-w-none ${blok?.center_text ? 'text-center' : ''} ${blok?.invert_text_colour ? 'text-white prose-invert' : ''} ${blok?.styling_classes}`}
+  class={`
+    ws-container 
+    prose 
+    
+    max-w-none 
+    dark:prose-invert
+    ${blok?.center_text ? 'text-center' : ''} 
+    ${blok?.invert_text_colour ? 'text-white prose-invert' : ''} 
+    ${blok?.use_serif_font ? 'font-bitter' : ''} 
+    ${blok?.styling_classes}
+  `}
   set:html={renderedRichText}
   data-html-id={blok?.html_id?.toString() !== ''
     ? blok?.html_id?.toString()

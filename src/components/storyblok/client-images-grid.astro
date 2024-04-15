@@ -1,0 +1,40 @@
+---
+import { type SbBlokData } from '@storyblok/astro';
+import type { ComponentProps } from '@lib/types';
+import { isMap } from '@lib/helpers';
+import { storyblokEditable } from '@storyblok/astro';
+
+const { blok } = Astro.props as ComponentProps;
+
+let logos: SbBlokData[] = [];
+
+if (blok.logos && isMap<SbBlokData>(blok.logos)) logos = blok.logos;
+
+// title
+// logos (block)
+
+console.log('logos', logos);
+---
+
+<div class="ws-container py-16">
+  <h2 class="text-center text-brand-primary-900 font-semibold text-4xl pb-16">
+    {blok.title}
+  </h2>
+
+  <div
+    class="grid grid-cols-1 sm:grid-cols-5 gap-5"
+    {...storyblokEditable(blok)}
+  >
+    {
+      logos?.map((blok: any) => (
+        <div class="grid grid-cols-1 place-items-center bg-brand-dark-200 h-[130px]">
+          <img
+            src={blok?.image?.filename}
+            alt=""
+            class="object-fit max-w-[75%]"
+          />
+        </div>
+      ))
+    }
+  </div>
+</div>

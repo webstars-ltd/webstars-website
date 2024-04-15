@@ -47,18 +47,23 @@ export default {
       colors: {
         brand: {
           black: {
+            900: '#333',
             800: '#2d2d2d',
+            700: '#0e1828',
           },
           primary: {
             900: '#329999',
             500: '#63adad',
+            300: '#57b6b6',
           },
           secondary: {
             900: '#294f82',
+            700: '#1d3e8b',
           },
           dark: {
             900: '#0e314c',
             500: '#777a7b',
+            200: '#e2e7e8',
             100: '#ababab',
           },
           gray: {
@@ -77,7 +82,8 @@ export default {
       typography: (theme) => ({
         DEFAULT: {
           css: {
-            color: theme('colors.brand.dark.500'),
+            color: theme('colors.brand.black.700'),
+            fontWeight: '400',
             a: {
               color: theme('colors.brand.dark.900'),
               '&:hover': {
