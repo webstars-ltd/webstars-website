@@ -1,0 +1,12 @@
+[build]
+command = "pnpm run build"
+publish = "dist"
+
+[dev]
+command = "pnpm run dev"
+
+[[redirects]]
+  from = "/home"
+  to = "/"
+  status = 301
+  force = true
