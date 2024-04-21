@@ -12,11 +12,9 @@ if (blok.logos && isMap<SbBlokData>(blok.logos)) logos = blok.logos;
 
 // title
 // logos (block)
-
-console.log('logos', logos);
 ---
 
-<div class="ws-container py-16">
+<div class="ws-container py-16" {...storyblokEditable(blok)}>
   <h2 class="text-center text-brand-primary-900 font-semibold text-4xl pb-16">
     {blok.title}
   </h2>

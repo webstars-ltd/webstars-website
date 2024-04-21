@@ -1,0 +1,39 @@
+---
+import type { ComponentProps, SbAsset } from '@lib/types';
+import { storyblokEditable } from '@storyblok/astro';
+
+const { blok } = Astro.props as ComponentProps;
+
+const profileImg = blok?.profile_image as SbAsset;
+const socialLink = blok?.linkedin_link as string;
+
+// profile_image
+// name
+// title
+// linkedin_link
+---
+
+<div class="text-center" {...storyblokEditable(blok)}>
+  <div class="flex flex-col gap-6 items-center">
+    <figure class="overflow-hidden rounded-[50%]">
+      <img src={profileImg?.filename} alt="" class="w-[200px] h-auto" />
+    </figure>
+
+    <div>
+      <h2 class="text-xl font-semibold font-sans">{blok?.name}</h2>
+      <p class="text-lg">{blok?.title}</p>
+    </div>
+
+    {
+      socialLink !== '' && (
+        <a
+          href={socialLink}
+          class="text-brand-dark-100 hover:text-brand-secondary-900 text-3xl w-[fit-content]"
+          target="_blank"
+        >
+          <i class="fa-brands fa-linkedin" />
+        </a>
+      )
+    }
+  </div>
+</div>

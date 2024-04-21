@@ -1,0 +1,23 @@
+---
+import { type SbBlokData } from '@storyblok/astro';
+import type { ComponentProps } from '@lib/types';
+import { isMap } from '@lib/helpers';
+import { storyblokEditable } from '@storyblok/astro';
+import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro';
+
+const { blok } = Astro.props as ComponentProps;
+
+let teamMembers: SbBlokData[] = [];
+
+if (blok.team_members && isMap<SbBlokData>(blok.team_members))
+  teamMembers = blok.team_members;
+
+// team_members
+---
+
+<div
+  class="grid grid-cols-1 sm:grid-cols-3 gap-10 gap-y-24 py-32 px-14"
+  {...storyblokEditable(blok)}
+>
+  {teamMembers?.map((block: any) => <StoryblokComponent blok={block} />)}
+</div>

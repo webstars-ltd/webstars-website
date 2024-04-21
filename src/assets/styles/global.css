@@ -8,7 +8,7 @@
 @layer base {
   html,
   body {
-    @apply font-sans font-normal text-base text-brand-secondary-900 md:leading-relaxed;
+    @apply font-sans font-normal text-base text-brand-black-700 md:leading-relaxed;
   }
 
   h1,

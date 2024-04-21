@@ -42,6 +42,8 @@ export default defineConfig({
         divider: 'components/storyblok/divider',
         'image-item': 'components/storyblok/image-item',
         'client-images-grid': 'components/storyblok/client-images-grid',
+        'staff-profile': 'components/storyblok/staff-profile',
+        'team-member-grid': 'components/storyblok/team-member-grid',
       },
       apiOptions: {
         region: 'eu',
