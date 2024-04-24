@@ -10,17 +10,6 @@ let metaFields: MetaFields = {
 };
 ---
 
-<!-- <SEO
-          title="Contact"
-          description={
-            "Webstars are experts in everything digital - from design and development, to strategy and ongoing support, we are a full-service agency here to bring your digital aspirations to life."
-          }
-        />
-<NativeForms
-              form="https://form.nativeforms.com/JZDdV1jZm80UPJnWH1Db"
-              onClose={result => console.log("on-close", result)}
-              onSend={result => console.log("on-send", result?.form?.completed)}
-            /> -->
 <BaseLayout>
   <SEOMeta slot="seo-tags" type={'page'} metaFields={metaFields} />
 
@@ -28,6 +17,7 @@ let metaFields: MetaFields = {
     <div class="ws-container">
       <h2 class="text-brand-primary-900 font-sans">Contact us</h2>
       <iframe
+        id="nfContactForm"
         src="https://f.nativeforms.com/JZDdV1jZm80UPJnWH1Db"
         width="100%"
         height="600"
