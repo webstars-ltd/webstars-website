@@ -43,7 +43,7 @@
 
     <div class="flex flex-col py-16 gap-18 sm:gap-36">
       {#each projects as { content: project, slug, name }, i}
-        <ProjectCard {project} href={`/insights/${slug}`} title={name ?? ''} />
+        <ProjectCard {project} href={`/projects/${slug}`} title={name ?? ''} />
       {/each}
     </div>
   </section>
