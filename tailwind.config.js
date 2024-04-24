@@ -59,6 +59,7 @@ export default {
           secondary: {
             900: '#294f82',
             700: '#1d3e8b',
+            100: '#3fa0d71f',
           },
           dark: {
             900: '#0e314c',

@@ -77,6 +77,13 @@
       @apply font-sans font-semibold text-4.25xl text-brand-dark-500 leading-11;
     }
   }
+
+  .has-card-hover-effect {
+    &:hover {
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
+      transform: translateY(-20px);
+    }
+  }
 }
 
 @layer utilities {

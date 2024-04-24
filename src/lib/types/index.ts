@@ -11,3 +11,5 @@ export type {
   SbAsset,
   SbDatasourceEntry,
 } from './storyblok';
+export type { InsightContent, Insight, InsightResponse } from './insights';
+export type { ProjectContent, Project, ProjectResponse } from './projects';
