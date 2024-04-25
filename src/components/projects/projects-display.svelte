@@ -33,7 +33,7 @@
   });
 </script>
 
-<div class="pt-10" id="listings-display-start">
+<div class="pt-10" id="projects-display-start">
   <section class="ws-container">
     {#if loading}
       <div class="py-20">

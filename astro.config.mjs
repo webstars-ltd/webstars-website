@@ -44,6 +44,8 @@ export default defineConfig({
         'client-images-grid': 'components/storyblok/client-images-grid',
         'staff-profile': 'components/storyblok/staff-profile',
         'team-member-grid': 'components/storyblok/team-member-grid',
+        project: 'components/storyblok/project',
+        insight: 'components/storyblok/insight',
       },
       apiOptions: {
         region: 'eu',

@@ -1,0 +1,139 @@
+---
+import type { ComponentProps, ProjectContent } from '@lib/types';
+import {
+  storyblokEditable,
+  renderRichText,
+  type ISbRichtext,
+} from '@storyblok/astro';
+
+import Divider from '@components/storyblok/divider.astro';
+import ProjectCta from '@components/global/project-cta.astro';
+import ProjectCard from '@components/projects/project-card.svelte';
+
+const { blok } = Astro.props as ComponentProps;
+const { slug } = Astro.params;
+
+const content = blok as ProjectContent;
+
+// slug = /projects/proskauer
+
+//  client
+//  list_title
+//  title
+//  subtitle
+//  featured_image (image)
+//  intro
+//  objectives_content (rich text)
+//  features_content (rich text)
+//  services_content (rich text)
+//  results_content (rich text)
+//  related_projects (relations)
+//  meta_fields
+---
+
+<header class="pb-16" {...storyblokEditable(blok)}>
+  <h1 class="text-center text-5.5xl leading-13 font-sans font-semibold">
+    {content.title}
+  </h1>
+  <p class="text-center tagline text-5.25xl leading-13">{content.subtitle}</p>
+</header>
+
+<!-- Project information -->
+<section class="ws-container">
+  <div class="px-10">
+    <figure class="bg-brand-secondary-100 mt-16 px-2 pb-8">
+      <img
+        src={content.featured_image?.filename}
+        alt={content.featured_image?.alt}
+        class="object-fit block mx-auto w-full"
+      />
+    </figure>
+  </div>
+
+  <p class="text-center text-brand-dark-500 text-xl px-10 my-20 mb-32">
+    {content.intro}
+  </p>
+
+  <div class="grid grid-cols-1 gap-8 gap-y-28 sm:grid-cols-2 px-10">
+    <div>
+      <h2 class="font-sans text-brand-primary-900 font-bold text-4xl mb-5">
+        Objectives
+      </h2>
+      {
+        content.objectives_content && (
+          <div
+            class="prose text-lg max-w-none"
+            set:html={renderRichText(content.objectives_content as ISbRichtext)}
+          />
+        )
+      }
+    </div>
+    <div>
+      <h2 class="font-sans text-brand-primary-900 font-bold text-4xl mb-5">
+        Features
+      </h2>
+      {
+        content.features_content && (
+          <div
+            class="prose text-lg max-w-none"
+            set:html={renderRichText(content.features_content as ISbRichtext)}
+          />
+        )
+      }
+    </div>
+    <div>
+      <h2 class="font-sans text-brand-primary-900 font-bold text-4xl mb-5">
+        Services
+      </h2>
+      {
+        content.services_content && (
+          <div
+            class="prose text-lg max-w-none"
+            set:html={renderRichText(content.services_content as ISbRichtext)}
+          />
+        )
+      }
+    </div>
+    <div>
+      <h2 class="font-sans text-brand-primary-900 font-bold text-4xl mb-5">
+        Results
+      </h2>
+      {
+        content.results_content && (
+          <div
+            class="prose text-lg max-w-none"
+            set:html={renderRichText(content.results_content as ISbRichtext)}
+          />
+        )
+      }
+    </div>
+  </div>
+</section>
+
+<Divider />
+
+<div class="mb-32"></div>
+<div class="ws-container">
+  <div class="px-10">
+    <ProjectCta />
+  </div>
+</div>
+
+<div class="mb-32"></div>
+<!-- Related projects -->
+<div class="pt-10" id="projects-display-start">
+  <section class="ws-container">
+    <div class="flex flex-col py-16 gap-18 sm:gap-36">
+      {
+        content.related_projects?.map((project) => (
+          <ProjectCard
+            project={project.content}
+            href={`/projects/${project.slug}`}
+            title={project.name ?? ''}
+            client:load
+          />
+        ))
+      }
+    </div>
+  </section>
+</div>

@@ -1,0 +1,18 @@
+---
+import { storyblokApi } from '@lib/api';
+import { renderRichText, type ISbRichtext } from '@storyblok/astro';
+
+const { data } = await storyblokApi('cdn/stories/global/project-cta', {
+  resolve_links: 'url',
+});
+const content = data.story?.content?.content;
+---
+
+{
+  content && (
+    <div
+      class="project-cta prose prose-lg max-w-none text-center"
+      set:html={renderRichText(content as ISbRichtext)}
+    />
+  )
+}

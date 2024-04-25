@@ -11,6 +11,7 @@ export type ProjectContent = {
   features_content: any;
   services_content: any;
   results_content: any;
+  related_projects: Project[];
   meta_fields: MetaFields;
 };
 
