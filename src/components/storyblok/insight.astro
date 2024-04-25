@@ -1,0 +1,116 @@
+---
+import type { ComponentProps, InsightContent } from '@lib/types';
+import {
+  storyblokEditable,
+  renderRichText,
+  type ISbRichtext,
+} from '@storyblok/astro';
+
+import Divider from '@components/storyblok/divider.astro';
+import GlobalCta from './global-cta.astro';
+import InsightCard from '@components/insights/insight-card.svelte';
+import AuthorDetails from '@components/insights/author-details.astro';
+
+const { blok, publishedDate } = Astro.props as ComponentProps;
+const { slug } = Astro.params;
+
+const content = blok as InsightContent;
+
+// title
+// tagline
+// featured_image (image)
+// content (rich text)
+// quote: any; (rich text)
+// categories
+// related_insights (relations)
+// author_byline
+// author_image
+// body (blocks)
+// meta_fields
+---
+
+<header class="pb-16" {...storyblokEditable(blok)}>
+  <h1 class="text-center text-5.5xl leading-13 font-sans font-semibold">
+    {content.title}
+  </h1>
+  <p
+    class="text-center tagline text-5.25xl leading-13 font-bitter text-brand-secondary-900"
+  >
+    {content.tagline}
+  </p>
+</header>
+
+<!-- Project information -->
+<section class="ws-container">
+  <div class="px-10 mb-24">
+    <figure class="bg-brand-secondary-100 mt-16 pt-32 px-10 pb-16">
+      <img
+        src={content.featured_image?.filename}
+        alt={content.featured_image?.alt}
+        class="object-fit block mx-auto w-full"
+      />
+    </figure>
+  </div>
+
+  <div class="grid grid-cols-1 gap-8 gap-y-28 sm:grid-cols-12 px-10">
+    <div class="col-span-4">
+      <AuthorDetails
+        image={content.author_image?.filename ?? ''}
+        imageAlt={content.author_image?.alt ?? ''}
+        byline={content.author_byline}
+        date={publishedDate}
+      />
+    </div>
+    <div class="col-span-7 col-start-6">
+      {
+        content && (
+          <div
+            class="insight-content prose max-w-none"
+            set:html={renderRichText(content.content as ISbRichtext)}
+          />
+        )
+      }
+    </div>
+  </div>
+</section>
+
+<Divider />
+
+<div class="mb-32"></div>
+<div class="ws-container mb-52">
+  <div class="px-10">
+    {
+      content && (
+        <div
+          class="insight-cta prose prose-lg max-w-none text-center"
+          set:html={renderRichText(content.quote as ISbRichtext)}
+        />
+      )
+    }
+  </div>
+</div>
+
+<div class="ws-container -mb-48">
+  <GlobalCta />
+</div>
+
+<!-- Related projects -->
+<div class="pt-10" id="projects-display-start">
+  <section class="ws-container">
+    <div
+      class="grid grid-cols-1 gap-5 gap-y-10 py-16 sm:grid-cols-2 sm:gap-7 sm:gap-y-12 sm:mt-24"
+    >
+      {
+        content.related_insights?.map((insight) => (
+          <InsightCard
+            insight={insight.content}
+            href={`/insights/${insight.slug}`}
+            title={insight.name ?? ''}
+            version="two"
+            client:load
+          />
+        ))
+      }
+    </div>
+  </section>
+</div>

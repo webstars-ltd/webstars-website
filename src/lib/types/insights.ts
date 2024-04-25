@@ -5,7 +5,9 @@ export type InsightContent = {
   tagline: string;
   featured_image: SbAsset;
   content: any;
+  quote: any;
   categories: string[];
+  related_insights: Insight[];
   author_byline: string;
   author_image: SbAsset;
   body: any[];

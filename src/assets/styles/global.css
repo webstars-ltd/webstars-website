@@ -84,6 +84,28 @@
       transform: translateY(-20px);
     }
   }
+
+  .project-cta.prose-lg h2 {
+    @apply text-3xl text-brand-dark-500 font-sans leading-tight font-[600] mb-0;
+
+    > a {
+      @apply text-brand-primary-900;
+    }
+
+    + h2 {
+    }
+  }
+
+  .insight-cta.prose-lg {
+    @apply text-3xl text-brand-dark-500 font-sans leading-tight font-[600] mb-0;
+
+    a {
+      @apply text-brand-primary-900;
+    }
+  }
+
+  .insight-content.prose {
+  }
 }
 
 @layer utilities {
@@ -98,5 +120,19 @@
       :where([class~='not-prose'], [class~='not-prose'] *)
     ) {
     margin-top: 0;
+  }
+  .prose
+    :where(ul > li):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+    padding-inline-start: 0.175em;
+  }
+  .prose :where(li):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+    margin-top: 0.15em;
+    margin-bottom: 0.15em;
+  }
+  .prose
+    :where(ul > li):not(
+      :where([class~='not-prose'], [class~='not-prose'] *)
+    )::marker {
+    color: inherit;
   }
 }
