@@ -105,6 +105,24 @@
   }
 
   .insight-content.prose {
+    h2 {
+      @apply font-sans font-semibold text-4xl text-brand-secondary-900 leading-[46px] mb-9;
+    }
+
+    h3 {
+      @apply font-headings text-3xl font-semibold !text-brand-primary-900 mt-10;
+
+      b {
+        @apply font-semibold;
+      }
+      span {
+        @apply !text-brand-primary-900;
+      }
+    }
+
+    a {
+      @apply no-underline hover:underline;
+    }
   }
 }
 
