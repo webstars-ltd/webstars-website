@@ -86,7 +86,7 @@
   }
 
   .project-cta.prose-lg h2 {
-    @apply text-3xl text-brand-dark-500 font-sans leading-tight font-[600] mb-0;
+    @apply text-xl text-brand-dark-500 font-sans leading-tight font-[600] mb-0 md:text-3xl;
 
     > a {
       @apply text-brand-primary-900;
@@ -97,7 +97,7 @@
   }
 
   .insight-cta.prose-lg {
-    @apply text-3xl text-brand-dark-500 font-sans leading-tight font-[600] mb-0;
+    @apply text-xl text-brand-dark-500 font-sans leading-tight font-[600] mb-0 md:text-3xl;
 
     a {
       @apply text-brand-primary-900;
