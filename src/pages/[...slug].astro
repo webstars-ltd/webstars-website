@@ -23,7 +23,7 @@ if (await isPageNotFound(slug, { starts_with: slug }))
 const { data } = await getStoryblokPageData({
   slug,
   resolution: 'url',
-  relations: [],
+  relations: ['selected_insights.insights', 'selected_projects.projects'],
 });
 
 const publishedDate = data.first_published_at ?? data.story.created_at;
