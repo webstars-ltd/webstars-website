@@ -103,7 +103,7 @@
     {/if}
 
     <div
-      class="grid grid-cols-1 gap-5 gap-y-10 py-16 sm:grid-cols-2 sm:gap-7 sm:gap-y-12 sm:mt-24"
+      class="grid grid-cols-1 gap-5 gap-y-10 py-16 md:grid-cols-2 sm:gap-7 sm:gap-y-12 sm:mt-24"
     >
       {#each filteredInsights as { content: insight, slug, name }, i}
         <InsightCard

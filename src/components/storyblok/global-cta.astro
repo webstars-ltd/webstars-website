@@ -2,23 +2,27 @@
 import { storyblokApi } from '@lib/api';
 
 const { data } = await storyblokApi('cdn/stories/global/global-cta');
+const content = data?.story?.content;
 
 // title
 // intro
 // type
 // download_item
 // image (asset)
-const content = data?.story?.content;
 ---
 
-<div class="flex flex-col my-28 sm:flex-row px-10">
+<div class="flex flex-col my-28 lg:flex-row lgpx-10">
   <div
-    class="flex flex-col justify-between py-10 px-14 order-2 bg-brand-secondary-700 font-sans text-white sm:order-1 sm:w-1/2"
+    class="flex flex-col gap-8 justify-between px-8 py-10 lg:px-14 order-2 bg-brand-secondary-700 font-sans text-white lg:order-1 lg:w-1/2"
   >
     <div>
       <span class="block mb-3">{content?.type}</span>
-      <h2 class="font-sans font-bold text-4xl mb-1">{content?.title}</h2>
-      <p class="text-brand-primary-300 text-4xl">{content?.intro}</p>
+      <h2 class="font-sans font-bold text-3xl lg:text-4xl mb-1">
+        {content?.title}
+      </h2>
+      <p class="text-brand-primary-300 text-2xl lg:text-4xl">
+        {content?.intro}
+      </p>
     </div>
     <a
       href={content?.download_item}
@@ -28,7 +32,7 @@ const content = data?.story?.content;
     >
   </div>
 
-  <div class="order-1 sm:order-2 sm:w-1/2">
+  <div class="order-1 lg:order-2 lg:w-1/2">
     <img src={content?.image?.filename} alt="" />
   </div>
 </div>
