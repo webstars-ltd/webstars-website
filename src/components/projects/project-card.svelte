@@ -36,7 +36,7 @@
       />
     </figure>
     <div
-      class="bg-brand-gray-100 pt-12 pb-8 space-y-5 max-md:min-h-[450px] md:w-1/2"
+      class="bg-brand-gray-100 pt-12 pb-8 space-y-5 max-md:min-h-[450px] md:w-1/2 dark:text-brand-black-700"
     >
       <p class="px-6 md:px-12">
         Case Study | {project.client}

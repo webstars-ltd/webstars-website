@@ -36,7 +36,7 @@ const content = blok as InsightContent;
     {content.title}
   </h1>
   <p
-    class="text-center tagline text-4.25xl leading-9 lg:text-5.25xl lg:leading-13 font-bitter text-brand-secondary-900"
+    class="text-center tagline text-4.25xl leading-9 lg:text-5.25xl lg:leading-13 font-bitter text-brand-secondary-900 dark:text-brand-primary-900"
   >
     {content.tagline}
   </p>
@@ -69,7 +69,7 @@ const content = blok as InsightContent;
       {
         content && (
           <div
-            class="insight-content prose font-bitter max-w-none"
+            class="insight-content prose font-bitter max-w-none dark:text-white"
             set:html={renderRichText(content.content as ISbRichtext)}
           />
         )
@@ -86,7 +86,7 @@ const content = blok as InsightContent;
     {
       content && (
         <div
-          class="insight-cta prose prose-lg max-w-none text-center"
+          class="insight-cta prose prose-lg max-w-none text-center dark:text-white"
           set:html={renderRichText(content.quote as ISbRichtext)}
         />
       )

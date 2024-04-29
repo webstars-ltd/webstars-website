@@ -11,7 +11,7 @@ const content = data.story?.content?.content;
 {
   content && (
     <div
-      class="project-cta prose prose-lg max-w-none text-center"
+      class="project-cta prose prose-lg max-w-none text-center dark:text-white"
       set:html={renderRichText(content as ISbRichtext)}
     />
   )

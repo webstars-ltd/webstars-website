@@ -5,6 +5,7 @@ import { storyblokApi } from '@lib/api';
 
 import ThemeToggle from '@components/theme-toggle.astro';
 
+const { slug } = Astro.params;
 const { data } = await storyblokApi('cdn/stories/global', {
   resolve_links: 'url',
 });
@@ -14,22 +15,24 @@ const mainMenu = data.story?.content?.main_menu;
 
 <div
   id="main-nav"
-  class="fixed bg-white w-full top-0 left-0 z-50 transition-all duration-[0.2s] delay-0 ease-in shadow-gray-100 py-2 max-lg:border-b lg:pt-12"
+  class="fixed w-full top-0 left-0 z-50 transition-all duration-[0.2s] delay-0 ease-in shadow-gray-100 py-2 max-lg:border-b lg:pt-12 dark:shadow-none"
 >
   <div class="ws-container">
     <div class="flex flex-row justify-between items-center">
       <div>
-        <img
-          src="/ws logo white.png"
-          alt="webstars ltd company logo"
-          class="max-w-40 hidden dark:block"
-        />
+        <a href="/" class="">
+          <img
+            src="/ws logo white.png"
+            alt="webstars ltd company logo"
+            class="max-w-40 hidden dark:block"
+          />
 
-        <img
-          src="/ws logo grey.png"
-          alt="webstars ltd company logo"
-          class="max-w-40 dark:hidden"
-        />
+          <img
+            src="/ws logo grey.png"
+            alt="webstars ltd company logo"
+            class="max-w-40 dark:hidden"
+          />
+        </a>
       </div>
 
       <div class="flex flex-row gap-4 items-center">
@@ -38,7 +41,7 @@ const mainMenu = data.story?.content?.main_menu;
             mainMenu.map((link: MenuLinkItem) => (
               <a
                 href={linkFinder(link.link, links)}
-                class="text-brand-dark-100 text-[15px] font-semibold tracking-[0.2px] font-headings hover:text-brand-black-800 transition-colors duration-150"
+                class="text-brand-dark-100 text-[15px] font-semibold tracking-[0.2px] font-headings hover:text-brand-black-800 transition-colors duration-150 menu-item dark:hover:text-brand-primary-900 dark:text-white"
               >
                 {toSentenceCase(link.link_text)}
               </a>
@@ -60,7 +63,7 @@ const mainMenu = data.story?.content?.main_menu;
         mainMenu.map((link: MenuLinkItem) => (
           <a
             href={linkFinder(link.link, links)}
-            class="text-brand-dark-100 text-lg font-semibold tracking-[0.2px] font-headings hover:text-brand-black-800 transition-colors duration-150"
+            class="text-brand-dark-100 text-lg font-semibold tracking-[0.2px] font-headings hover:text-brand-black-800 transition-colors duration-150 menu-item dark:hover:text-brand-primary-900 dark:text-white"
           >
             {toSentenceCase(link.link_text)}
           </a>
@@ -92,6 +95,32 @@ const mainMenu = data.story?.content?.main_menu;
         nav.classList.remove('lg:py-3');
       }
     }
+  });
+
+  window.addEventListener('load', () => {
+    const menuItems = document.querySelectorAll('.menu-item');
+    const path = document.location.pathname
+      .replaceAll('/', '')
+      .toLocaleLowerCase()
+      .trim(); // e.g. 'about'
+
+    menuItems.forEach((menuItem) => {
+      const linkPath = (menuItem as HTMLAnchorElement).href
+        .replace(document.location.origin, '')
+        .replaceAll('/', '')
+        .toLocaleLowerCase()
+        .trim();
+
+      console.log('linkPath, path', linkPath, path);
+
+      if (linkPath === path) {
+        menuItem.classList.add(
+          'text-brand-black-800',
+          'dark:text-brand-primary-900'
+        );
+        menuItem.classList.remove('text-brand-dark-100', 'dark:text-white');
+      }
+    });
   });
 
   btnToggleMenu?.addEventListener('click', () => {

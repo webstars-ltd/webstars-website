@@ -85,6 +85,8 @@
             duration-300
             ease-linear
             rounded-full
+
+            dark:text-brand-black-700
           "
           data-active={category.value === selectedCategory}
           on:click={() => handleFilterInsights(category.value)}

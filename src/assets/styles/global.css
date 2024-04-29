@@ -8,7 +8,7 @@
 @layer base {
   html,
   body {
-    @apply font-sans font-normal text-base text-brand-black-700 md:leading-relaxed;
+    @apply font-sans font-normal text-base text-brand-black-700 md:leading-relaxed dark:text-white dark:bg-black transition-all duration-200 ease-linear;
   }
 
   h1,
@@ -62,7 +62,7 @@
   }
 
   .tagline {
-    @apply heading-1 text-brand-primary-900 font-semibold;
+    @apply heading-1 text-brand-primary-900 font-semibold dark:text-white;
   }
 }
 
@@ -85,8 +85,37 @@
     }
   }
 
+  .ws-container.prose {
+    span {
+      @apply dark:!text-white;
+    }
+
+    a {
+      @apply text-brand-primary-900;
+    }
+
+    h1 {
+      @apply text-brand-primary-900;
+    }
+
+    h2 {
+      @apply font-sans font-semibold text-4xl text-brand-secondary-900 leading-[46px] mb-9 dark:text-brand-primary-900 only:text-white;
+    }
+
+    h3 {
+      @apply font-sans text-3xl font-semibold !text-brand-primary-900 mt-10;
+
+      b {
+        @apply font-semibold;
+      }
+      span {
+        @apply !text-brand-primary-900;
+      }
+    }
+  }
+
   .project-cta.prose-lg h2 {
-    @apply text-xl text-brand-dark-500 font-sans leading-tight font-[600] mb-0 md:text-3xl;
+    @apply text-xl text-brand-dark-500 font-sans leading-tight font-[600] mb-0 md:text-3xl dark:text-white;
 
     > a {
       @apply text-brand-primary-900;
@@ -97,7 +126,11 @@
   }
 
   .insight-cta.prose-lg {
-    @apply text-xl text-brand-dark-500 font-sans leading-tight font-[600] mb-0 md:text-3xl;
+    @apply text-xl text-brand-dark-500 font-sans leading-tight font-[600] mb-0 md:text-3xl dark:text-white;
+
+    span {
+      @apply dark:!text-white;
+    }
 
     a {
       @apply text-brand-primary-900;
@@ -105,8 +138,14 @@
   }
 
   .insight-content.prose {
+    @apply dark:text-white;
+
+    span {
+      @apply dark:!text-white;
+    }
+
     h2 {
-      @apply font-sans font-semibold text-4xl text-brand-secondary-900 leading-[46px] mb-9;
+      @apply font-sans font-semibold text-4xl text-brand-secondary-900 leading-[46px] mb-9 dark:text-brand-primary-900;
     }
 
     h3 {

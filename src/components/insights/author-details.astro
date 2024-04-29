@@ -9,8 +9,6 @@ interface Props {
 }
 
 const { image, imageAlt, byline, date } = Astro.props;
-
-console.log('time/date', date);
 ---
 
 <div class="flex flex-col gap-6 text-center justify-center items-center">
@@ -19,7 +17,7 @@ console.log('time/date', date);
   </figure>
 
   <div class="font-bitter">
-    <p class="font-[900]">{byline}</p>
+    <p class="font-[900] dark:text-brand-primary-900">{byline}</p>
     <time datetime={date}>
       {format(new Date(date ?? ''), 'MMMM do, yyy')}
     </time>
@@ -28,7 +26,7 @@ console.log('time/date', date);
   <div class="flex flex-row gap-2">
     <a
       href="https://uk.linkedin.com/company/webstars-ltd"
-      class="w-5 h-5 block"
+      class="w-5 h-5 block dark:text-brand-dark-100"
       target="_blank"
       ><svg
         aria-hidden="true"
@@ -46,7 +44,7 @@ console.log('time/date', date);
       ></a
     ><a
       href="https://www.tiktok.com/@webstarsltd"
-      class="w-5 h-5 block"
+      class="w-5 h-5 block dark:text-brand-dark-100"
       target="_blank"
       ><svg
         aria-hidden="true"
@@ -64,7 +62,7 @@ console.log('time/date', date);
       ></a
     ><a
       href="https://www.instagram.com/webstarsltd/"
-      class="w-5 h-5 block"
+      class="w-5 h-5 block dark:text-brand-dark-100"
       target="_blank"
       ><svg
         aria-hidden="true"
@@ -82,7 +80,7 @@ console.log('time/date', date);
       ></a
     ><a
       href="https://www.facebook.com/webstarsltd"
-      class="w-5 h-5 block"
+      class="w-5 h-5 block dark:text-brand-dark-100"
       target="_blank"
       ><svg
         aria-hidden="true"
@@ -100,7 +98,7 @@ console.log('time/date', date);
       ></a
     ><a
       href="https://www.youtube.com/@webstarsltd"
-      class="w-6 h-6 block"
+      class="w-6 h-6 block dark:text-brand-dark-100"
       target="_blank"
       ><svg
         aria-hidden="true"
@@ -122,20 +120,21 @@ console.log('time/date', date);
   <a
     href="/contact"
     class="bg-brand-gray-100
-            font-serif
-            text-sm
-            px-8
-            py-2
-            
-            hover:bg-brand-primary-300
-            hover:text-white
-            data-[active=true]:bg-brand-primary-300
-            data-[active=true]:text-white
-            
-            transition-colors
-            duration-300
-            ease-linear
-            rounded-full"
+      font-serif
+      text-sm
+      px-8
+      py-2
+      
+      hover:bg-brand-primary-300
+      hover:text-white
+      data-[active=true]:bg-brand-primary-300
+      data-[active=true]:text-white
+      
+      transition-colors
+      duration-300
+      ease-linear
+      rounded-full
+      dark:text-brand-black-700"
   >
     Contact Us
   </a>

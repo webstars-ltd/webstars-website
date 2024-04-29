@@ -25,6 +25,8 @@
     ease-linear
 
     has-card-hover-effect
+
+    dark:text-brand-primary-900
   "
 >
   <div class="flex flex-col gap-4 h-full">
@@ -35,7 +37,7 @@
     </p>
     <h2
       class="heading-2 font-[500] px-8 leading-10 {version === 'one'
-        ? 'text-brand-secondary-900'
+        ? 'text-brand-secondary-900 dark:text-brand-primary-900'
         : 'text-brand-primary-900'}"
     >
       {insight.title ?? title}: {insight.tagline}

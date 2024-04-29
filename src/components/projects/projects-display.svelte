@@ -26,9 +26,6 @@
     const projectData = await loadProjects();
 
     projects = projectData?.projects;
-
-    console.log('projects', projects);
-
     loading = false;
   });
 </script>
