@@ -5,7 +5,6 @@ import { storyblokApi } from '@lib/api';
 
 import ThemeToggle from '@components/theme-toggle.astro';
 
-const { slug } = Astro.params;
 const { data } = await storyblokApi('cdn/stories/global', {
   resolve_links: 'url',
 });
@@ -15,7 +14,25 @@ const mainMenu = data.story?.content?.main_menu;
 
 <div
   id="main-nav"
-  class="fixed w-full top-0 left-0 z-50 transition-all duration-[0.2s] delay-0 ease-in shadow-gray-100 py-2 max-lg:border-b lg:pt-12 dark:shadow-none"
+  class="fixed
+    w-full
+    top-0
+    left-0
+    z-50
+    
+    transition-all
+    duration-[0.2s]
+    delay-0
+    ease-in
+    
+    shadow-gray-100
+    
+    py-2
+    
+    max-lg:border-b
+    lg:pt-12
+    
+    dark:shadow-none"
 >
   <div class="ws-container">
     <div class="flex flex-row justify-between items-center">
@@ -89,10 +106,12 @@ const mainMenu = data.story?.content?.main_menu;
       if (scrollPosition >= narrowNavPosition) {
         nav.classList.remove('lg:pt-12');
         nav.classList.add('lg:py-3', 'shadow-md');
+        nav.classList.add('bg-white', 'dark:bg-black');
       } else {
         nav.classList.add('lg:pt-12');
         nav.classList.remove('shadow-md');
         nav.classList.remove('lg:py-3');
+        nav.classList.remove('bg-white', 'dark:bg-black');
       }
     }
   });
