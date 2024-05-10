@@ -120,9 +120,6 @@
     > a {
       @apply text-brand-primary-900;
     }
-
-    + h2 {
-    }
   }
 
   .insight-cta.prose-lg {
@@ -161,6 +158,91 @@
 
     a {
       @apply no-underline hover:underline;
+    }
+  }
+
+  .product-quote.prose-lg {
+    @apply text-xl text-brand-dark-500 font-sans leading-tight font-[600] mb-0 md:text-3xl dark:text-white;
+
+    span {
+      @apply dark:!text-white;
+    }
+
+    a {
+      @apply text-brand-primary-900;
+    }
+  }
+
+  /*================================================
+    Services page CSS
+  =================================================*/
+  table.pricing-table {
+    @apply w-full p-0 mt-3 bg-gradient-to-br from-brand-primary-900 to-brand-secondary-900;
+
+    th,
+    td {
+      @apply text-white;
+    }
+
+    thead {
+      tr:not(.table-divider) {
+        th {
+          @apply font-sans font-black pt-8 pr-3 pb-3 pl-6 text-left;
+        }
+
+        th:nth-child(2) {
+          @apply bg-brand-secondary-700 md:pl-14;
+        }
+      }
+      tr.table-divider {
+        th {
+          @apply pl-6;
+        }
+        th:nth-child(2) {
+          @apply bg-brand-secondary-700 pr-6 pl-0;
+        }
+      }
+    }
+
+    tbody {
+      tr {
+        td {
+          @apply py-3 pr-3 pl-6;
+        }
+
+        td:nth-child(2) {
+          @apply bg-brand-secondary-700 md:pl-14;
+        }
+      }
+
+      tr:last-child {
+        td {
+          @apply pb-12;
+        }
+      }
+    }
+  }
+
+  @media only screen and (max-width: 470px) {
+    table.pricing-table {
+      /* display: block; */
+      overflow-x: auto;
+      white-space: nowrap;
+
+      thead th:first-child {
+        min-width: 60%;
+      }
+
+      /* thead th:last-child {
+        min-width: 40%;
+      } */
+
+      tbody td:nth-child(1) {
+        min-width: 60%;
+      }
+      /* tbody td:nth-child(2) {
+        min-width: 40%;
+      } */
     }
   }
 }

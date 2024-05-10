@@ -1,0 +1,73 @@
+---
+import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro';
+import {
+  getStaticPageParams,
+  getStoryblokPageData,
+  isPageNotFound,
+} from '@lib/api';
+import BaseLayout from '@layouts/base-layout.astro';
+import SEOMeta from '@components/meta/seo-meta.astro';
+
+export async function getStaticPaths() {
+  const paths = await getStaticPageParams({
+    per_page: 40,
+    starts_with: 'products/',
+  });
+
+  // Should return an object with urls like this:
+  // '/products/some-path-here-like-test'
+
+  return [...paths];
+}
+
+const { slug } = Astro.params;
+
+const slugParts = ((slug ?? '') as string).split('/');
+
+// /products/some-path-here-like-test
+
+if (
+  await isPageNotFound(slugParts[slugParts.length - 1], {
+    starts_with: `products/${slug}`,
+  })
+) {
+  console.log("we can't find the page", slug);
+
+  return Astro.redirect('/404');
+}
+
+let data: any;
+
+try {
+  const { data: sbData } = await getStoryblokPageData({
+    slug: `products/${slug}`,
+    resolution: 'url',
+    relations: [],
+  });
+
+  data = sbData;
+} catch (error: any) {
+  const errorObj = JSON.parse(error);
+
+  if (errorObj && errorObj.status === 404) return Astro.redirect('/404');
+
+  return Astro.redirect('/500');
+}
+---
+
+<BaseLayout>
+  <SEOMeta
+    slot="seo-tags"
+    type="page"
+    metaFields={data?.story.content.meta_fields}
+  />
+  <Fragment slot="main">
+    <StoryblokComponent
+      blok={data?.story.content}
+      links={data?.links}
+      id={data?.story.id}
+      uuid={data?.story.uuid}
+      publishedDate={data?.story?.published_at ?? data?.story?.created_at}
+    />
+  </Fragment>
+</BaseLayout>

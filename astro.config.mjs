@@ -46,6 +46,7 @@ export default defineConfig({
         'team-member-grid': 'components/storyblok/team-member-grid',
         project: 'components/storyblok/project',
         insight: 'components/storyblok/insight',
+        product: 'components/storyblok/product',
         selected_insights: 'components/storyblok/selected-insights',
         selected_projects: 'components/storyblok/selected-projects',
       },
