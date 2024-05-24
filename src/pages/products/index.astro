@@ -1,4 +1,14 @@
 ---
+Astro.response.headers.set(
+  'Cache-Control',
+  'public, max-age=300, s-maxage=3600'
+);
+// Tell the CDN to treat it as fresh for 5 minutes, then return a stale version while it revalidates
+Astro.response.headers.set(
+  'Netlify-CDN-Cache-Control',
+  'public, s-maxage=604800, stale-while-revalidate=604800'
+);
+
 import { type SbBlokData, storyblokEditable } from '@storyblok/astro';
 import type { ISbStoriesParams } from '@storyblok/js';
 import { isMap } from '@lib/helpers';

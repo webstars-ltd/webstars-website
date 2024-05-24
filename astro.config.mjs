@@ -16,7 +16,7 @@ const isPreviewMode = PUBLIC_ENV === 'preview' || PUBLIC_ENV === 'development';
 
 // https://astro.build/config
 export default defineConfig({
-  output: isPreviewMode ? 'server' : 'hybrid',
+  output: 'server',
   adapter: netlify({ cacheOnDemandPages: true }),
   site: 'https://webstarsltd.com',
   image: {
