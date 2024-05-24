@@ -72,12 +72,6 @@
     @apply text-3xl font-bold font-sans mb-8;
   }
 
-  .ws-home-page-intro {
-    h2 {
-      @apply font-sans font-semibold text-4.25xl text-brand-dark-500 leading-11;
-    }
-  }
-
   .has-card-hover-effect {
     &:hover {
       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
@@ -99,7 +93,7 @@
     }
 
     h2 {
-      @apply font-sans font-semibold text-4xl text-brand-secondary-900 leading-[46px] mb-9 dark:text-brand-primary-900 only:text-white;
+      @apply font-sans font-semibold text-3xl text-brand-secondary-900 leading-[46px] mb-9 dark:text-brand-primary-900 only:text-white sm:text-4xl;
     }
 
     h3 {
@@ -170,6 +164,12 @@
 
     a {
       @apply text-brand-primary-900;
+    }
+  }
+
+  .ws-home-page-intro {
+    h2 {
+      @apply font-sans font-semibold text-4.25xl !text-brand-dark-500 leading-11 dark:!text-white max-sm:text-3xl;
     }
   }
 
@@ -273,5 +273,9 @@
       :where([class~='not-prose'], [class~='not-prose'] *)
     )::marker {
     color: inherit;
+  }
+
+  .prose h3 + h4 {
+    @apply -mt-3;
   }
 }

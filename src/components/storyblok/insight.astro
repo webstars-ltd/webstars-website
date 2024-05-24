@@ -29,17 +29,19 @@ const content = blok as InsightContent;
 // meta_fields
 ---
 
-<header class="pb-16" {...storyblokEditable(blok)}>
-  <h1
-    class="text-center text-4.25xl lg:text-5.5xl leading-13 font-sans font-semibold"
-  >
-    {content.title}
-  </h1>
-  <p
-    class="text-center tagline text-4.25xl leading-9 lg:text-5.25xl lg:leading-13 font-bitter text-brand-secondary-900 dark:text-brand-primary-900"
-  >
-    {content.tagline}
-  </p>
+<header class="pb-16 max-sm:my-28" {...storyblokEditable(blok)}>
+  <div class="ws-container">
+    <h1
+      class="text-center text-5.5xl leading-tight sm:leading-13 font-sans font-semibold"
+    >
+      {content.title}
+    </h1>
+    <p
+      class="text-center tagline font-medium leading-13 text-5.25xl font-bitter text-brand-secondary-900 dark:text-brand-primary-900"
+    >
+      {content.tagline}
+    </p>
+  </div>
 </header>
 
 <!-- Project information -->

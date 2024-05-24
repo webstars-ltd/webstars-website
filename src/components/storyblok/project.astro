@@ -31,17 +31,17 @@ const content = blok as ProjectContent;
 //  meta_fields
 ---
 
-<header class="pb-16 max-md:px-8" {...storyblokEditable(blok)}>
-  <h1
-    class="text-center text-4.25xl lg:text-5.5xl leading-13 font-sans font-semibold"
-  >
-    {content.title}
-  </h1>
-  <p
-    class="text-center tagline text-4.25xl leading-9 lg:text-5.25xl lg:leading-13 dark:text-brand-primary-900"
-  >
-    {content.subtitle}
-  </p>
+<header class="pb-16 max-sm:my-28 max-md:px-8" {...storyblokEditable(blok)}>
+  <div class="ws-container">
+    <h1 class="text-center text-5.5xl leading-13 font-sans font-semibold">
+      {content.title}
+    </h1>
+    <p
+      class="text-center tagline font-medium text-5.25xl leading-13 dark:text-brand-primary-900"
+    >
+      {content.subtitle}
+    </p>
+  </div>
 </header>
 
 <!-- Project information -->
@@ -63,7 +63,7 @@ const content = blok as ProjectContent;
   </p>
 
   <div
-    class="grid grid-cols-1 gap-8 gap-y-4 md:gap-y-28 md:grid-cols-2 md:px-10"
+    class="grid grid-cols-1 gap-8 gap-y-8 md:gap-y-28 md:grid-cols-2 md:px-10 mt-36"
   >
     <div>
       <h2 class="font-sans text-brand-primary-900 font-bold text-4xl mb-5">
@@ -129,21 +129,23 @@ const content = blok as ProjectContent;
   </div>
 </div>
 
-<div class="mb-32"></div>
-<!-- Related projects -->
-<div class="pt-10" id="projects-display-start">
-  <section class="ws-container">
-    <div class="flex flex-col py-16 gap-18 sm:gap-36">
-      {
-        content.related_projects?.map((project) => (
-          <ProjectCard
-            project={project.content}
-            href={`/projects/${project.slug}`}
-            title={project.name ?? ''}
-            client:load
-          />
-        ))
-      }
-    </div>
-  </section>
-</div>
+{ content?.related_projects && content?.related_projects.length > 0 && (
+  <div class="mb-32"></div>
+  <!-- Related projects -->
+  <div class="pt-10" id="projects-display-start">
+    <section class="ws-container">
+      <div class="flex flex-col py-16 gap-18 sm:gap-36">
+        {
+          content.related_projects?.map((project) => (
+            <ProjectCard
+              project={project.content}
+              href={`/projects/${project.slug}`}
+              title={project.name ?? ''}
+              client:load
+            />
+          ))
+        }
+      </div>
+    </section>
+  </div>
+)}

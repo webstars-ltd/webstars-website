@@ -12,7 +12,7 @@ export default {
       pattern: /columns-\b([1-9]|10)\b/gi,
     },
     {
-      pattern: /ws-*/gi,
+      pattern: /ws-.*/gi,
     },
   ],
   theme: {

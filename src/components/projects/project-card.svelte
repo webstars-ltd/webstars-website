@@ -21,7 +21,7 @@
     
     has-card-hover-effect
     
-    lg:h-[460px]
+    md:h-[460px]
     lg:mx-10
   "
 >

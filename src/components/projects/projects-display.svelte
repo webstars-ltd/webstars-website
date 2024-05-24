@@ -38,7 +38,7 @@
       </div>
     {/if}
 
-    <div class="flex flex-col py-16 gap-36">
+    <div class="flex flex-col py-16 gap-32">
       {#each projects as { content: project, slug, name }, i}
         <ProjectCard {project} href={`/projects/${slug}`} title={name ?? ''} />
       {/each}
