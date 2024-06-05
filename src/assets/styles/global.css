@@ -181,8 +181,34 @@
   }
 
   /*================================================
-    Services page CSS
+    Services/Product page CSS
   =================================================*/
+  .product-content.prose {
+    blockquote {
+      @apply p-0 
+        border-none 
+        flex 
+        flex-row 
+        align-middle 
+        justify-stretch 
+        before:rounded-md 
+        before:w-2 
+        before:block
+        before:bg-gradient-to-b
+        before:from-brand-primary-900 
+        before:via-brand-secondary-900 
+        before:to-brand-third-900;
+
+      p {
+        @apply !not-italic text-brand-third-900 font-semibold leading-8 py-1 pl-4 m-0;
+      }
+
+      i {
+        @apply text-4xl font-bitter font-[500] italic leading-9 tracking-[0.275px] text-brand-primary-900;
+      }
+    }
+  }
+
   table.pricing-table {
     @apply w-full p-0 mt-3 bg-gradient-to-br from-brand-primary-900 to-brand-secondary-900;
 
@@ -284,5 +310,17 @@
 
   .prose h3 + h4 {
     @apply -mt-3;
+  }
+
+  .product-content.prose
+    :where(blockquote p:first-of-type):not(
+      :where([class~='not-prose'], [class~='not-prose'] *)
+    )::before,
+  .product-content.prose
+    :where(blockquote p:last-of-type):not(
+      :where([class~='not-prose'], [class~='not-prose'] *)
+    )::after {
+    content: '';
+    display: none;
   }
 }
