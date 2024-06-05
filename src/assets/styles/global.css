@@ -168,6 +168,12 @@
     }
   }
 
+  .author-content.prose {
+    a {
+      @apply text-brand-primary-900;
+    }
+  }
+
   .ws-home-page-intro {
     h2 {
       @apply font-sans font-semibold text-4.25xl !text-brand-dark-500 leading-11 dark:!text-white max-sm:text-3xl;

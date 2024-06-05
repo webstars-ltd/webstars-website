@@ -19,7 +19,7 @@ const { image, imageAlt, byline } = Astro.props;
     {
       byline && (
         <div
-          class="insight-content prose font-bitter max-w-none dark:text-white"
+          class="author-content prose font-bitter max-w-none dark:text-white"
           set:html={renderRichText(byline as ISbRichtext)}
         />
       )
