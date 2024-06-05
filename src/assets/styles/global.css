@@ -192,7 +192,8 @@
         align-middle 
         justify-stretch 
         before:rounded-md 
-        before:w-2 
+        before:w-[8px]
+        before:min-w-[8px]
         before:block
         before:bg-gradient-to-b
         before:from-brand-primary-900 
