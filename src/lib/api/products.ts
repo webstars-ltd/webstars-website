@@ -7,7 +7,7 @@ const generateDefaultParameters = (
   per_page = 100
 ): ISbStoriesParams => ({
   starts_with: 'products/',
-  sort_by: 'published_at',
+  sort_by: 'content.order_date:desc',
   content_type: 'product',
   excluding_fields: 'content,quote,pricing_table',
   resolve_relations: [],

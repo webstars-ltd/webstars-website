@@ -6,6 +6,7 @@ export type ProjectContent = {
   title: string;
   subtitle: string;
   featured_image: SbAsset;
+  featured_image_lp: SbAsset;
   intro: string;
   objectives_content: any;
   features_content: any;

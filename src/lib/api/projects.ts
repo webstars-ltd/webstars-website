@@ -7,7 +7,7 @@ const generateDefaultParameters = (
   per_page = 100
 ): ISbStoriesParams => ({
   starts_with: 'projects/',
-  sort_by: 'published_at',
+  sort_by: 'content.order_date:desc',
   content_type: 'project',
   excluding_fields:
     'objectives_content,features_content,services_content,results_content',

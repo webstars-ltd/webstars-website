@@ -22,6 +22,7 @@ const content = blok as ProjectContent;
 //  title
 //  subtitle
 //  featured_image (image)
+//  featured_image_lp (image)
 //  intro
 //  objectives_content (rich text)
 //  features_content (rich text)
@@ -29,6 +30,8 @@ const content = blok as ProjectContent;
 //  results_content (rich text)
 //  related_projects (relations)
 //  meta_fields
+
+const image = content.featured_image_lp?.filename ? content.featured_image_lp : content.featured_image;
 ---
 
 <header class="pb-16 max-sm:my-28 max-md:px-8" {...storyblokEditable(blok)}>
@@ -49,8 +52,8 @@ const content = blok as ProjectContent;
   <div class="lg:px-10">
     <figure class="bg-brand-secondary-100 mt-16 px-2 pb-8">
       <img
-        src={content.featured_image?.filename}
-        alt={content.featured_image?.alt}
+        src={image?.filename}
+        alt={image?.alt}
         class="object-fit block mx-auto w-full"
       />
     </figure>

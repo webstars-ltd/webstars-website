@@ -42,7 +42,7 @@
     >
       {insight.title ?? title}: {insight.tagline}
     </h2>
-    <figure class="grow flex flex-col justify-end">
+    <figure class="grow flex flex-col justify-end px-5">
       <img
         src={insight.featured_image?.filename}
         alt={insight.featured_image?.alt}

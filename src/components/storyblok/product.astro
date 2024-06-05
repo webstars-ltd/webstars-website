@@ -25,9 +25,10 @@ const content = blok as ProductContent;
 // author_byline
 // author_image
 // body (blocks)
-// pricing_table
 // table_header
 // table_subheader
+// pricing_table
+// table_caption
 // meta_fields
 ---
 
@@ -89,6 +90,13 @@ const content = blok as ProductContent;
     subtitle={content?.table_subheader}
     table={content?.pricing_table}
   />
+  {
+    content?.table_caption && (
+      <div class="pt-6 mx-auto max-w-4xl">
+        <p class="italic text-center text-sm">{content?.table_caption}</p>
+      </div>
+    )
+  }
 </div>
 
 <div class="mb-10 md:mb-32"></div>

@@ -151,8 +151,19 @@
       }
     }
 
+    h4 {
+      @apply !text-brand-primary-900;
+
+      b {
+        @apply font-semibold;
+      }
+      span {
+        @apply !text-brand-primary-900;
+      }
+    }
+
     a {
-      @apply no-underline hover:underline;
+      @apply !text-brand-primary-900 no-underline hover:underline;
     }
   }
 

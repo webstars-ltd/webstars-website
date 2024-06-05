@@ -13,6 +13,7 @@ export type ProductContent = {
   table_header: string;
   table_subheader: string;
   pricing_table: any;
+  table_caption: string;
   meta_fields: MetaFields;
 };
 

@@ -37,7 +37,7 @@
     >
       {product.title ?? title}: {product.tagline}
     </h2>
-    <figure class="grow flex flex-col justify-end">
+    <figure class="grow flex flex-col justify-end px-5">
       <img
         src={product.featured_image?.filename}
         alt={product.featured_image?.alt}
