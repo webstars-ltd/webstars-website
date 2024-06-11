@@ -14,7 +14,10 @@ const mainMenu = data.story?.content?.main_menu;
 
 <div
   id="main-nav"
-  class="fixed
+  class="max-sm:bg-white
+  max-sm:dark:bg-black
+  
+    fixed
     w-full
     top-0
     left-0
@@ -75,7 +78,10 @@ const mainMenu = data.story?.content?.main_menu;
       </div>
     </div>
 
-    <nav class="flex-col gap-4 my-3 hidden" id="mobile-nav">
+    <nav
+      class="flex-col gap-4 my-3 hidden bg-white dark:bg-black"
+      id="mobile-nav"
+    >
       {
         mainMenu.map((link: MenuLinkItem) => (
           <a
