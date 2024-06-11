@@ -14,8 +14,6 @@
       const data = await res.json();
       loading = false;
 
-      console.log('data', data);
-
       return data;
     } else {
       throw new Error('Error loading products');
