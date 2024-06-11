@@ -92,8 +92,10 @@ const content = blok as ProductContent;
   />
   {
     content?.table_caption && (
-      <div class="pt-6 mx-auto max-w-4xl">
-        <p class="italic text-center text-sm">{content?.table_caption}</p>
+      <div class="pt-6 max-w-4xl">
+        <p class="italic text-left text-sm text-brand-dark-100">
+          {content?.table_caption}
+        </p>
       </div>
     )
   }
