@@ -4,6 +4,7 @@
   export let insight: InsightContent;
   export let href: string;
   export let title: string;
+  export let showCategories: boolean = true;
   export let version: 'one' | 'two' = 'one';
 </script>
 
@@ -31,9 +32,11 @@
 >
   <div class="flex flex-col gap-4 h-full">
     <p class="space-x-2 px-8">
-      {#each insight.categories as category}
-        <span>#{category}</span>
-      {/each}
+      {#if showCategories && insight.categories.length > 0}
+        {#each insight.categories as category}
+          <span>#{category}</span>
+        {/each}
+      {/if}
     </p>
     <h2
       class="heading-2 font-[500] px-8 leading-10 {version === 'one'

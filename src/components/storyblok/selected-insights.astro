@@ -7,6 +7,7 @@ const { blok } = Astro.props as ComponentProps;
 const insights = blok?.insights as any[];
 
 // insights (relations)
+// show_categories (boolean)
 ---
 
 <section class="ws-container">
@@ -17,6 +18,7 @@ const insights = blok?.insights as any[];
       insights?.map((insight) => (
         <InsightCard
           insight={insight.content}
+          showCategories={blok?.show_categories ?? true}
           href={`/insights/${insight.slug}`}
           title={insight.name ?? ''}
           version="two"
