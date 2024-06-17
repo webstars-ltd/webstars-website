@@ -31,7 +31,7 @@
   "
 >
   <div class="flex flex-col gap-4 h-full">
-    <p class="space-x-2 px-8">
+    <p class="px-8 flex flex-row flex-wrap gap-2">
       {#if showCategories && insight.categories.length > 0}
         {#each insight.categories as category}
           <span>#{category}</span>
