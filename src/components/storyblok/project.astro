@@ -34,13 +34,13 @@ const content = blok as ProjectContent;
 const image = content.featured_image_lp?.filename ? content.featured_image_lp : content.featured_image;
 ---
 
-<header class="pb-16 max-sm:my-28 max-md:px-8" {...storyblokEditable(blok)}>
+<header class="pb-16 md:my-28 max-sm:px-0 max-md:px-8" {...storyblokEditable(blok)}>
   <div class="ws-container">
-    <h1 class="text-center text-5xl leading-13 font-sans font-semibold sm:text-5.5xl">
+    <h1 class="text-center text-4.25xl leading-13 font-sans font-semibold sm:text-5.5xl">
       {content.title}
     </h1>
     <p
-      class="text-center tagline font-medium text-5xl leading-13 dark:text-brand-primary-900 sm:text-5.25xl"
+      class="text-center tagline font-[600] text-4.25xl leading-11 dark:text-brand-primary-900 sm:leading-13 sm:text-5xl md:text-5.25xl"
     >
       {content.subtitle}
     </p>
