@@ -9,11 +9,17 @@ const content = data?.story?.content;
 // type
 // download_item
 // image (asset)
+// background_color_hex
+
+const style = content?.background_color_hex
+  ? `background-color: #${content?.background_color_hex?.replace('#')}`
+  : '';
 ---
 
 <div class="flex flex-col my-28 md:flex-row lgpx-10">
   <div
     class="flex flex-col gap-8 justify-between px-8 py-10 lg:px-14 order-2 bg-brand-secondary-700 font-sans text-white md:order-1 md:w-1/2"
+    style={style}
   >
     <div>
       <span class="block mb-3">{content?.type}</span>
