@@ -104,20 +104,23 @@ const content = blok as ProductContent;
 </div>
 
 <div class="mb-10 md:mb-32"></div>
-<div class="ws-container mb-52">
-  {
-    content && (
-      <blockquote class="flex flex-col gap-12 text-brand-primary-900 md:px-10">
-        <p class="text-3xl font-bitter font-[500] italic leading-10 tracking-[0.275px]">
-          "{content?.quote}"
-        </p>
-        <cite class="not-italic text-lg font-poppins justify-self-end text-right text-brand">
-          - {content?.quote_name}
-        </cite>
-      </blockquote>
-    )
-  }
-</div>
+
+{
+  content?.quote && (
+    <div class="ws-container mb-52">
+      {content && (
+        <blockquote class="flex flex-col gap-12 text-brand-primary-900 md:px-10">
+          <p class="text-3xl font-bitter font-[500] italic leading-10 tracking-[0.275px]">
+            "{content?.quote}"
+          </p>
+          <cite class="not-italic text-lg font-poppins justify-self-end text-right text-brand">
+            - {content?.quote_name}
+          </cite>
+        </blockquote>
+      )}
+    </div>
+  )
+}
 
 <div class="md:ws-container">
   <GlobalCta />
