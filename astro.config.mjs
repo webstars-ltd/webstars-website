@@ -57,6 +57,7 @@ export default defineConfig({
         selected_insights: 'components/storyblok/selected-insights',
         selected_projects: 'components/storyblok/selected-projects',
         call_to_action: 'components/storyblok/call-to-action',
+        quote: 'components/storyblok/quote',
       },
       apiOptions: {
         region: 'eu',

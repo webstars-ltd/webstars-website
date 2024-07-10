@@ -1,0 +1,27 @@
+---
+import type { ComponentProps } from '@lib/types';
+import {
+  renderRichText,
+  storyblokEditable,
+  type ISbRichtext,
+} from '@storyblok/astro';
+
+const { blok } = Astro.props as ComponentProps;
+
+const renderedRichText = renderRichText(blok.text as ISbRichtext);
+
+// text
+---
+
+<div class="mb-10 md:mb-32"></div>
+<div class="ws-container mb-52">
+  <div
+    id={blok?.html_id?.toString() ?? ''}
+    class="insight-cta prose prose-lg max-w-none text-center dark:text-white"
+    set:html={renderedRichText}
+    data-html-id={blok?.html_id?.toString() !== ''
+      ? blok?.html_id?.toString()
+      : undefined}
+    {...storyblokEditable(blok)}
+  />
+</div>

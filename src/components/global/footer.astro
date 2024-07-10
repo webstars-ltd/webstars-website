@@ -59,20 +59,22 @@ const socialLinks = data.story?.content?.social_links;
               <p class="">
                 <a
                   href={`tel:${contactDetails.phone_number}`}
-                  class="link link-primary">{contactDetails.phone_number}</a
+                  class="link link-primary"
+                  target="_blank">{contactDetails.phone_number}</a
                 >
               </p>
               <p class="">
                 <a
                   href={`mailto:${contactDetails.email_address}`}
-                  class="link link-primary">{contactDetails.email_address}</a
+                  class="link link-primary"
+                  target="_blank">{contactDetails.email_address}</a
                 >
               </p>
               <p class="">
                 <a
                   href={`mailto:${contactDetails.email_address_alt}`}
                   class="link link-primary"
-                  >{contactDetails.email_address_alt}</a
+                  target="_blank">{contactDetails.email_address_alt}</a
                 >
               </p>
             </div>
@@ -85,6 +87,7 @@ const socialLinks = data.story?.content?.social_links;
                     <a
                       href={link?.link?.url ?? '/'}
                       class="link link-hover block"
+                      target="_blank"
                     >
                       {toSentenceCase(link.link_text)}
                     </a>
