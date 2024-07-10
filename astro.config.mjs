@@ -24,6 +24,12 @@ export default defineConfig({
       entrypoint: 'astro/assets/services/sharp',
     },
   },
+  redirects: {
+    '/guides': {
+      status: 301,
+      destination: '/',
+    },
+  },
   integrations: [
     tailwind({
       applyBaseStyles: false,
@@ -47,8 +53,10 @@ export default defineConfig({
         project: 'components/storyblok/project',
         insight: 'components/storyblok/insight',
         product: 'components/storyblok/product',
+        guide: 'components/storyblok/guide',
         selected_insights: 'components/storyblok/selected-insights',
         selected_projects: 'components/storyblok/selected-projects',
+        call_to_action: 'components/storyblok/call-to-action',
       },
       apiOptions: {
         region: 'eu',
