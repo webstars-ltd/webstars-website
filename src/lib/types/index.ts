@@ -15,3 +15,4 @@ export type { InsightContent, Insight, InsightResponse } from './insights';
 export type { ProjectContent, Project, ProjectResponse } from './projects';
 export type { ProductContent, Product, ProductResponse } from './products';
 export type { GuideContent, Guide } from './guides';
+export type { CallToActionContent } from './components';
