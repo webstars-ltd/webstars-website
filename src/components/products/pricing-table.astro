@@ -38,7 +38,7 @@ const { header, subtitle, table } = Astro.props;
             {table?.tbody.map((row: any) => (
               <tr>
                 {row.body.map((cell: any) => (
-                  <td>{cell.value}</td>
+                  <td set:html={cell.value}></td>
                 ))}
               </tr>
             ))}
