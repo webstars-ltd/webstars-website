@@ -17,7 +17,7 @@ import {
 } from "@lib/api";
 import BaseLayout from "@layouts/base-layout.astro";
 import SEOMeta from "@components/meta/seo-meta.astro";
-import type { MetaFields } from "@lib/types";
+import type { ArticleMetaFields, MetaFields } from "@lib/types";
 
 export async function getStaticPaths() {
   const paths = await getStaticPageParams({
@@ -48,6 +48,13 @@ if (
 }
 
 let data: any;
+let publishedDate: string;
+let updatedDate: string;
+let articleMeta: ArticleMetaFields = {};
+let metaFields: MetaFields = {
+  title: '',
+  description: '',
+};
 
 try {
   const { data: sbData } = await getStoryblokPageData({
@@ -57,6 +64,20 @@ try {
   });
 
   data = sbData;
+
+  metaFields.title =  data?.story.content.meta_title ?? data?.story.content.title;
+  metaFields.description = data?.story.content.meta_description ?? data?.story.content.tagline;
+  publishedDate = data?.first_published_at ?? data?.story.created_at;
+  updatedDate = data?.story.published_at ?? data?.story.created_at;
+
+  articleMeta = {
+    publishedTime: publishedDate,
+    modifiedTime: updatedDate,
+    section: "Insights",
+    authors: [data.story?.content?.author_byline],
+    tags: data.story?.content?.categories ?? [],
+  };
+
 } catch (error: any) {
   const errorObj = JSON.parse(error);
 
@@ -64,11 +85,6 @@ try {
 
   return Astro.redirect("/500");
 }
-
-const metaFields: MetaFields = {
-  title: data?.story.content.meta_title,
-  description: data?.story.content.meta_description,
-};
 ---
 
 <BaseLayout>
@@ -76,6 +92,7 @@ const metaFields: MetaFields = {
     slot="seo-tags"
     type="article"
     metaFields={metaFields}
+    articleFields={articleMeta}
   />
   <Fragment slot="main">
     <StoryblokComponent
@@ -83,7 +100,7 @@ const metaFields: MetaFields = {
       links={data?.links}
       id={data?.story.id}
       uuid={data?.story.uuid}
-      publishedDate={data?.story?.published_at ?? data?.story?.created_at}
+      publishedDate={publishedDate ?? updatedDate}
     />
   </Fragment>
 </BaseLayout>
