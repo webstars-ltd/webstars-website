@@ -34,10 +34,6 @@ export const isPageNotFound = async (
 ) => {
   if (isPreviewMode) {
     const stories = await getSbPagePaths(options);
-
-    // console.log('slug', slug);
-    // console.log('page not found stories', stories);
-
     const matchedLink = stories.find(
       (story: any) => story.full_slug === slug || story.slug === slug
     );

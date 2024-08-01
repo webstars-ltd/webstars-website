@@ -1,0 +1,84 @@
+---
+Astro.response.headers.set(
+  'Cache-Control',
+  'public, max-age=300, s-maxage=3600'
+);
+// Tell the CDN to treat it as fresh for 5 minutes, then return a stale version while it revalidates
+Astro.response.headers.set(
+  'Netlify-CDN-Cache-Control',
+  'public, s-maxage=604800, stale-while-revalidate=604800'
+);
+
+import { type SbBlokData, storyblokEditable } from '@storyblok/astro';
+import type { ISbStoriesParams } from '@storyblok/js';
+import { isMap } from '@lib/helpers';
+import {
+  getStaticPageParams,
+  getStoryblokPageData,
+  isPageNotFound,
+} from '@lib/api';
+
+import BaseLayout from '@layouts/base-layout.astro';
+import SEOMeta from '@components/meta/seo-meta.astro';
+import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro';
+import ProductsDisplay from '@components/products/products-display.svelte';
+
+const pageOptions: ISbStoriesParams = {
+  per_page: 40,
+  starts_with: 'products/',
+};
+
+export async function getStaticPaths() {
+  return await getStaticPageParams(pageOptions);
+}
+
+// /products/ -- we're just loading the root Projects page here
+
+if (
+  await isPageNotFound('products', {
+    starts_with: 'products',
+  })
+)
+  return Astro.redirect('/404');
+
+const { data } = await getStoryblokPageData({
+  slug: 'products',
+  resolution: 'url',
+  relations: [],
+});
+
+const blok = data?.story.content;
+const links = data?.links ?? [];
+
+let body: SbBlokData[] = [];
+
+if (blok.body && isMap<SbBlokData>(blok.body)) body = blok.body;
+---
+
+<BaseLayout>
+  <SEOMeta
+    slot="seo-tags"
+    type="page"
+    metaFields={data?.story.content.meta_fields}
+  />
+  <Fragment slot="main">
+    <header class="pb-16" {...storyblokEditable(blok)}>
+      <h1
+        class="text-center text-5.5xl leading-13 text-brand-secondary-900 dark:text-brand-primary-900"
+      >
+        {blok.title}
+      </h1>
+      <p class="text-center tagline text-5.25xl leading-13">{blok.tagline}</p>
+    </header>
+
+    <ProductsDisplay client:load />
+
+    <div {...storyblokEditable(blok)}>
+      {
+        body?.map((blok: any) => {
+          return <StoryblokComponent blok={blok} links={links} />;
+        })
+      }
+    </div>
+  </Fragment>
+</BaseLayout>

@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i');
 @import url('https://fonts.googleapis.com/css?family=Bitter:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i');
+@import url('/css/all.min.css');
 
 @tailwind base;
 @tailwind components;
@@ -8,7 +9,7 @@
 @layer base {
   html,
   body {
-    @apply font-sans font-normal text-base text-brand-black-700 md:leading-relaxed;
+    @apply font-sans font-normal text-base text-brand-black-700 md:leading-relaxed dark:text-white dark:bg-black transition-all duration-200 ease-linear;
   }
 
   h1,
@@ -62,7 +63,7 @@
   }
 
   .tagline {
-    @apply heading-1 text-brand-primary-900 font-semibold;
+    @apply heading-1 text-brand-primary-900 font-semibold dark:text-white;
   }
 }
 
@@ -72,9 +73,221 @@
     @apply text-3xl font-bold font-sans mb-8;
   }
 
+  .has-card-hover-effect {
+    &:hover {
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
+      transform: translateY(-20px);
+    }
+  }
+
+  .ws-container.prose {
+    span {
+      @apply dark:!text-white;
+    }
+
+    a {
+      @apply text-brand-primary-900;
+    }
+
+    h1 {
+      @apply text-brand-primary-900;
+    }
+
+    h2 {
+      @apply font-sans font-semibold text-3xl text-brand-secondary-900 leading-[46px] mb-9 dark:text-brand-primary-900 only:text-white sm:text-4xl;
+    }
+
+    h3 {
+      @apply font-sans text-3xl font-semibold !text-brand-primary-900 mt-10;
+
+      b {
+        @apply font-semibold;
+      }
+      span {
+        @apply !text-brand-primary-900;
+      }
+    }
+  }
+
+  .project-cta.prose-lg h2 {
+    @apply text-xl text-brand-dark-500 font-sans leading-tight font-[600] mb-0 md:text-3xl dark:text-white;
+
+    > a {
+      @apply text-brand-primary-900;
+    }
+  }
+
+  .insight-cta.prose-lg {
+    @apply text-xl text-brand-dark-500 font-sans leading-tight font-[600] mb-0 md:text-3xl dark:text-white;
+
+    span {
+      @apply dark:!text-white;
+    }
+
+    a {
+      @apply text-brand-primary-900;
+    }
+  }
+
+  .insight-content.prose {
+    @apply dark:text-white;
+
+    span {
+      @apply dark:!text-white;
+    }
+
+    h2 {
+      @apply font-sans font-semibold text-4xl text-brand-secondary-900 leading-[46px] mb-9 dark:text-brand-primary-900;
+    }
+
+    h3 {
+      @apply font-headings text-3xl font-semibold !text-brand-primary-900 mt-10;
+
+      b {
+        @apply font-semibold;
+      }
+      span {
+        @apply !text-brand-primary-900;
+      }
+    }
+
+    h4 {
+      @apply !text-brand-primary-900;
+
+      b {
+        @apply font-semibold;
+      }
+      span {
+        @apply !text-brand-primary-900;
+      }
+    }
+
+    a {
+      @apply !text-brand-primary-900 no-underline hover:underline;
+    }
+  }
+
+  .product-quote.prose-lg {
+    @apply text-xl text-brand-dark-500 font-sans leading-tight font-[600] mb-0 md:text-3xl dark:text-white;
+
+    span {
+      @apply dark:!text-white;
+    }
+
+    a {
+      @apply text-brand-primary-900;
+    }
+  }
+
+  .author-content.prose {
+    a {
+      @apply text-brand-primary-900;
+    }
+  }
+
   .ws-home-page-intro {
     h2 {
-      @apply font-sans font-semibold text-4.25xl text-brand-dark-500 leading-11;
+      @apply font-sans font-semibold text-4.25xl !text-brand-dark-500 leading-11 dark:!text-white max-sm:text-3xl;
+    }
+  }
+
+  /*================================================
+    Services/Product page CSS
+  =================================================*/
+  .product-content.prose {
+    blockquote {
+      @apply p-0 
+        border-none 
+        flex 
+        flex-row 
+        align-middle 
+        justify-stretch 
+        before:rounded-md 
+        before:w-[8px]
+        before:min-w-[8px]
+        before:block
+        before:bg-gradient-to-b
+        before:from-brand-primary-900 
+        before:via-brand-secondary-900 
+        before:to-brand-third-900;
+
+      p {
+        @apply !not-italic text-brand-third-900 font-semibold leading-8 py-1 pl-4 m-0;
+      }
+
+      i {
+        @apply text-4xl font-bitter font-[500] italic leading-9 tracking-[0.275px] text-brand-primary-900;
+      }
+    }
+  }
+
+  table.pricing-table {
+    @apply w-full p-0 mt-3 bg-gradient-to-br from-brand-primary-900 to-brand-secondary-900;
+
+    th,
+    td {
+      @apply text-white;
+    }
+
+    thead {
+      tr:not(.table-divider) {
+        th {
+          @apply font-sans font-black pt-8 pr-3 pb-3 pl-6 text-left;
+        }
+
+        th:nth-child(2) {
+          @apply bg-brand-secondary-700 md:pl-14;
+        }
+      }
+      tr.table-divider {
+        th {
+          @apply pl-6;
+        }
+        th:nth-child(2) {
+          @apply bg-brand-secondary-700 pr-6 pl-0;
+        }
+      }
+    }
+
+    tbody {
+      tr {
+        td {
+          @apply py-3 pr-3 pl-6;
+        }
+
+        td:nth-child(2) {
+          @apply bg-brand-secondary-700 md:pl-14;
+        }
+      }
+
+      tr:last-child {
+        td {
+          @apply pb-12;
+        }
+      }
+    }
+  }
+
+  @media only screen and (max-width: 470px) {
+    table.pricing-table {
+      /* display: block; */
+      overflow-x: auto;
+      white-space: nowrap;
+
+      thead th:first-child {
+        min-width: 60%;
+      }
+
+      /* thead th:last-child {
+        min-width: 40%;
+      } */
+
+      tbody td:nth-child(1) {
+        min-width: 60%;
+      }
+      /* tbody td:nth-child(2) {
+        min-width: 40%;
+      } */
     }
   }
 }
@@ -91,5 +304,35 @@
       :where([class~='not-prose'], [class~='not-prose'] *)
     ) {
     margin-top: 0;
+  }
+  .prose
+    :where(ul > li):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+    padding-inline-start: 0.175em;
+  }
+  .prose :where(li):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+    margin-top: 0.15em;
+    margin-bottom: 0.15em;
+  }
+  .prose
+    :where(ul > li):not(
+      :where([class~='not-prose'], [class~='not-prose'] *)
+    )::marker {
+    color: inherit;
+  }
+
+  .prose h3 + h4 {
+    @apply -mt-3;
+  }
+
+  .product-content.prose
+    :where(blockquote p:first-of-type):not(
+      :where([class~='not-prose'], [class~='not-prose'] *)
+    )::before,
+  .product-content.prose
+    :where(blockquote p:last-of-type):not(
+      :where([class~='not-prose'], [class~='not-prose'] *)
+    )::after {
+    content: '';
+    display: none;
   }
 }

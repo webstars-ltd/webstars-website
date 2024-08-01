@@ -6,12 +6,7 @@ import { storyblokEditable } from '@storyblok/astro';
 import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro';
 import GlobalCta from './global-cta.astro';
 
-const {
-  blok,
-  links = [],
-  pageSlug,
-  isHomePage,
-} = Astro.props as ComponentProps;
+const { blok, links = [] } = Astro.props as ComponentProps;
 
 let body: SbBlokData[] = [];
 
@@ -26,8 +21,16 @@ if (blok.body && isMap<SbBlokData>(blok.body)) body = blok.body;
 ---
 
 <header class="pb-16" {...storyblokEditable(blok)}>
-  <h1 class="text-center text-5.5xl leading-13">{blok.title}</h1>
-  <p class="text-center tagline text-5.25xl leading-13">{blok.tagline}</p>
+  <div class="ws-container">
+    <h1
+      class="text-center text-5.5xl leading-13 text-brand-secondary-900 dark:text-brand-primary-900"
+    >
+      {blok.title}
+    </h1>
+    <p class="text-center tagline text-5.25xl leading-12 lg:leading-13">
+      {blok.tagline}
+    </p>
+  </div>
 </header>
 
 <div class="ws-container" {...storyblokEditable(blok)}>
@@ -38,6 +41,6 @@ if (blok.body && isMap<SbBlokData>(blok.body)) body = blok.body;
   }
 </div>
 
-<div class="ws-container">
+<div class="md:ws-container">
   <GlobalCta />
 </div>

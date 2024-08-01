@@ -25,9 +25,10 @@ const renderedRichText = renderRichText(blok.text as ISbRichtext);
     
     max-w-none 
     dark:prose-invert
+    dark:text-white
     ${blok?.center_text ? 'text-center' : ''} 
     ${blok?.invert_text_colour ? 'text-white prose-invert' : ''} 
-    ${blok?.use_serif_font ? 'font-bitter' : ''} 
+    ${blok?.use_serif_font ? 'prose-headings:font-bitter font-bitter' : 'prose-headings:font-sans font-sans'} 
     ${blok?.styling_classes}
   `}
   set:html={renderedRichText}

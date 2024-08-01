@@ -5,3 +5,6 @@ export {
   isPageNotFound,
   getStoryblokPageData,
 } from './pages';
+export { getInsightCategories, getInsights } from './insights';
+export { getProjects } from './projects';
+export { getProducts } from './products';

@@ -1,4 +1,14 @@
 ---
+Astro.response.headers.set(
+  'Cache-Control',
+  'public, max-age=300, s-maxage=3600'
+);
+// Tell the CDN to treat it as fresh for 5 minutes, then return a stale version while it revalidates
+Astro.response.headers.set(
+  'Netlify-CDN-Cache-Control',
+  'public, s-maxage=604800, stale-while-revalidate=604800'
+);
+
 import BaseLayout from '@layouts/base-layout.astro';
 import SEOMeta from '@components/meta/seo-meta.astro';
 import type { MetaFields } from '@lib/types';
@@ -10,27 +20,25 @@ let metaFields: MetaFields = {
 };
 ---
 
-<!-- <SEO
-          title="Contact"
-          description={
-            "Webstars are experts in everything digital - from design and development, to strategy and ongoing support, we are a full-service agency here to bring your digital aspirations to life."
-          }
-        />
-<NativeForms
-              form="https://form.nativeforms.com/JZDdV1jZm80UPJnWH1Db"
-              onClose={result => console.log("on-close", result)}
-              onSend={result => console.log("on-send", result?.form?.completed)}
-            /> -->
 <BaseLayout>
   <SEOMeta slot="seo-tags" type={'page'} metaFields={metaFields} />
 
   <Fragment slot="main">
+    <header class="pb-16">
+      <div class="ws-container">
+        <h1
+          class="text-center text-5.5xl leading-13 text-brand-secondary-900 dark:text-brand-primary-900"
+        >
+          Contact Us
+        </h1>
+      </div>
+    </header>
     <div class="ws-container">
-      <h2 class="text-brand-primary-900 font-sans">Contact us</h2>
       <iframe
+        id="nfContactForm"
         src="https://f.nativeforms.com/JZDdV1jZm80UPJnWH1Db"
         width="100%"
-        height="600"
+        height="800"
         frameborder="0"
       >
       </iframe>

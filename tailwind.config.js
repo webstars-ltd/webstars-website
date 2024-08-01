@@ -12,7 +12,7 @@ export default {
       pattern: /columns-\b([1-9]|10)\b/gi,
     },
     {
-      pattern: /ws-*/gi,
+      pattern: /ws-.*/gi,
     },
   ],
   theme: {
@@ -59,6 +59,10 @@ export default {
           secondary: {
             900: '#294f82',
             700: '#1d3e8b',
+            100: '#3fa0d71f',
+          },
+          third: {
+            900: '#93528e',
           },
           dark: {
             900: '#0e314c',

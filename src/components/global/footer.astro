@@ -1,12 +1,11 @@
 ---
-import { linkFinder, toSentenceCase } from '@lib/helpers';
+import { toSentenceCase } from '@lib/helpers';
 import { storyblokApi } from '@lib/api';
 import type { MenuLinkItem } from '@lib/types';
 
 const { data } = await storyblokApi('cdn/stories/global', {
   resolve_links: 'url',
 });
-const links = data.links;
 const contactDetails = data.story?.content?.contact_details[0];
 const socialLinks = data.story?.content?.social_links;
 ---
@@ -21,10 +20,12 @@ const socialLinks = data.story?.content?.social_links;
       class="max-w-40"
     />
 
-    <div class="grid mt-16 gap-10 sm:grid-cols-12">
+    <div class="grid mt-16 gap-10 lg:grid-cols-12">
       <div class="col-span-5">
-        <blockquote class="flex flex-col gap-12">
-          <p class="text-3xl font-serif italic leading-9 tracking-[0.275px]">
+        <blockquote class="flex flex-col gap-6 lg:gap-12">
+          <p
+            class="text-3xl font-bitter font-[500] italic leading-9 tracking-[0.275px]"
+          >
             "Your professionalism, knowledge, and ease have made the
             collaboration delightful."
           </p>
@@ -37,9 +38,9 @@ const socialLinks = data.story?.content?.social_links;
       <div class="col-span-7">
         <div class="flex flex-col gap-5">
           <div class="flex flex-col sm:flex-row gap-10">
-            <aside class="">
-              <header class="">Find Us</header>
-              <address class="mb-5 not-italic">
+            <aside>
+              <header class="max-sm:mb-3">Find Us</header>
+              <address class="max-sm:mb-3 mb-5 not-italic">
                 {
                   contactDetails.headquarters_address
                     .split(',')
@@ -54,36 +55,39 @@ const socialLinks = data.story?.content?.social_links;
             </aside>
 
             <div class="pr-5">
-              <h4>Contact Us</h4>
+              <h4 class="max-sm:mb-3">Contact Us</h4>
               <p class="">
                 <a
                   href={`tel:${contactDetails.phone_number}`}
-                  class="link link-primary">{contactDetails.phone_number}</a
+                  class="link link-primary"
+                  target="_blank">{contactDetails.phone_number}</a
                 >
               </p>
               <p class="">
                 <a
                   href={`mailto:${contactDetails.email_address}`}
-                  class="link link-primary">{contactDetails.email_address}</a
+                  class="link link-primary"
+                  target="_blank">{contactDetails.email_address}</a
                 >
               </p>
               <p class="">
                 <a
                   href={`mailto:${contactDetails.email_address_alt}`}
                   class="link link-primary"
-                  >{contactDetails.email_address_alt}</a
+                  target="_blank">{contactDetails.email_address_alt}</a
                 >
               </p>
             </div>
 
             <div>
-              <h4>Follow Us</h4>
+              <h4 class="max-sm:mb-3">Follow Us</h4>
               <nav>
                 {
                   socialLinks.map((link: MenuLinkItem) => (
                     <a
-                      href={linkFinder(link.link, links)}
+                      href={link?.link?.url ?? '/'}
                       class="link link-hover block"
+                      target="_blank"
                     >
                       {toSentenceCase(link.link_text)}
                     </a>
@@ -96,10 +100,7 @@ const socialLinks = data.story?.content?.social_links;
           <div class="flex flex-row gap-4">
             <p class="">&copy; Webstars 2024</p>
             <p>
-              <a
-                href="https://platform.illow.io/#/policy/cookie/985708de-addb-4d38-94b8-90e3700b80a5"
-                target="_blank">Privacy &amp; Cookies</a
-              >
+              <a href="/privacy" target="_blank">Privacy &amp; Cookies</a>
             </p>
             <p><a href="/terms" target="_blank">T&amp;Cs</a></p>
           </div>

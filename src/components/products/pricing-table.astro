@@ -1,0 +1,50 @@
+---
+interface Props {
+  header: string;
+  subtitle: string;
+  table: any;
+}
+
+const { header, subtitle, table } = Astro.props;
+---
+
+<section class="flex flex-col gap-5">
+  <h2 class="heading-1 text-brand-secondary-900">
+    {header}
+  </h2>
+  <h3 class="heading-3 font-sans text-brand-primary-900">{subtitle}</h3>
+  {
+    table && (
+      <table class="pricing-table">
+        {table?.thead?.length > 0 && (
+          <thead>
+            <tr>
+              {table?.thead.map((cell: any) => (
+                <th>{cell.value}</th>
+              ))}
+            </tr>
+            <tr class="table-divider">
+              <th>
+                <hr />
+              </th>
+              <th>
+                <hr />
+              </th>
+            </tr>
+          </thead>
+        )}
+        {table?.tbody?.length > 0 && (
+          <tbody>
+            {table?.tbody.map((row: any) => (
+              <tr>
+                {row.body.map((cell: any) => (
+                  <td set:html={cell.value}></td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        )}
+      </table>
+    )
+  }
+</section>

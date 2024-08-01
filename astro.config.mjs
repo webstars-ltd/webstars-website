@@ -16,12 +16,18 @@ const isPreviewMode = PUBLIC_ENV === 'preview' || PUBLIC_ENV === 'development';
 
 // https://astro.build/config
 export default defineConfig({
-  output: isPreviewMode ? 'server' : 'hybrid',
+  output: 'server',
   adapter: netlify({ cacheOnDemandPages: true }),
   site: 'https://webstarsltd.com',
   image: {
     service: {
       entrypoint: 'astro/assets/services/sharp',
+    },
+  },
+  redirects: {
+    '/guides': {
+      status: 301,
+      destination: '/',
     },
   },
   integrations: [
@@ -44,6 +50,14 @@ export default defineConfig({
         'client-images-grid': 'components/storyblok/client-images-grid',
         'staff-profile': 'components/storyblok/staff-profile',
         'team-member-grid': 'components/storyblok/team-member-grid',
+        project: 'components/storyblok/project',
+        insight: 'components/storyblok/insight',
+        product: 'components/storyblok/product',
+        guide: 'components/storyblok/guide',
+        selected_insights: 'components/storyblok/selected-insights',
+        selected_projects: 'components/storyblok/selected-projects',
+        call_to_action: 'components/storyblok/call-to-action',
+        quote: 'components/storyblok/quote',
       },
       apiOptions: {
         region: 'eu',

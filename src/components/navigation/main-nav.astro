@@ -1,7 +1,9 @@
 ---
+import type { MenuLinkItem } from '@lib/types';
 import { linkFinder, toSentenceCase } from '@lib/helpers';
 import { storyblokApi } from '@lib/api';
-import type { MenuLinkItem } from '@lib/types';
+
+import ThemeToggle from '@components/theme-toggle.astro';
 
 const { data } = await storyblokApi('cdn/stories/global', {
   resolve_links: 'url',
@@ -12,42 +14,95 @@ const mainMenu = data.story?.content?.main_menu;
 
 <div
   id="main-nav"
-  class="fixed bg-white pt-12 w-full top-0 left-0 z-50 transition-all duration-[0.2s] delay-0 ease-in shadow-gray-100"
+  class="max-sm:bg-white
+  max-sm:dark:bg-black
+  
+    fixed
+    w-full
+    top-0
+    left-0
+    z-50
+    
+    transition-all
+    duration-[0.2s]
+    delay-0
+    ease-in
+    
+    shadow-gray-100
+    
+    py-2
+    
+    max-lg:border-b
+    lg:pt-12
+    
+    dark:shadow-none"
 >
   <div class="ws-container">
     <div class="flex flex-row justify-between items-center">
       <div>
-        <img
-          src="/ws logo white.png"
-          alt="webstars ltd company logo"
-          class="max-w-40 hidden dark:block"
-        />
+        <a href="/" class="">
+          <img
+            src="/ws logo white.png"
+            alt="webstars ltd company logo"
+            class="max-w-40 hidden dark:block"
+          />
 
-        <img
-          src="/ws logo grey.png"
-          alt="webstars ltd company logo"
-          class="max-w-40 dark:hidden"
-        />
+          <img
+            src="/ws logo grey.png"
+            alt="webstars ltd company logo"
+            class="max-w-40 dark:hidden"
+          />
+        </a>
       </div>
 
-      <nav class="flex flex-row gap-5">
-        {
-          mainMenu.map((link: MenuLinkItem) => (
-            <a
-              href={linkFinder(link.link, links)}
-              class="text-brand-dark-100 text-[15px] font-semibold tracking-[0.2px] font-headings hover:text-brand-black-800 transition-colors duration-150"
-            >
-              {toSentenceCase(link.link_text)}
-            </a>
-          ))
-        }
-      </nav>
+      <div class="flex flex-row gap-4 items-center">
+        <nav class="flex flex-row gap-5 max-md:hidden">
+          {
+            mainMenu.map((link: MenuLinkItem) => (
+              <a
+                href={linkFinder(link.link, links)}
+                class="text-brand-dark-100 text-[15px] font-semibold tracking-[0.2px] font-headings hover:text-brand-black-800 transition-colors duration-150 menu-item dark:hover:text-brand-primary-900 dark:text-white"
+              >
+                {toSentenceCase(link.link_text)}
+              </a>
+            ))
+          }
+        </nav>
+
+        <ThemeToggle />
+        <button class="md:hidden" id="btn-toggle-menu">
+          <i class="fa-solid fa-bars fa-2xl" id="toggle-menu-icon-open"></i>
+          <i class="fa-solid fa-x hidden fa-2xl" id="toggle-menu-icon-close"
+          ></i>
+        </button>
+      </div>
     </div>
+
+    <nav
+      class="flex-col gap-4 my-3 hidden bg-white dark:bg-black"
+      id="mobile-nav"
+    >
+      {
+        mainMenu.map((link: MenuLinkItem) => (
+          <a
+            href={linkFinder(link.link, links)}
+            class="text-brand-dark-100 text-lg font-semibold tracking-[0.2px] font-headings hover:text-brand-black-800 transition-colors duration-150 menu-item dark:hover:text-brand-primary-900 dark:text-white"
+          >
+            {toSentenceCase(link.link_text)}
+          </a>
+        ))
+      }
+    </nav>
   </div>
 </div>
 
 <script>
   const nav = document.getElementById('main-nav');
+  const mobileNav = document.getElementById('mobile-nav');
+  const btnToggleMenu = document.getElementById('btn-toggle-menu');
+  const menuOpenIcon = document.getElementById('toggle-menu-icon-open');
+  const menuCloseIcon = document.getElementById('toggle-menu-icon-close');
+  let menuIsOpen = false;
 
   window.addEventListener('scroll', () => {
     const scrollPosition = window.scrollY,
@@ -55,13 +110,48 @@ const mainMenu = data.story?.content?.main_menu;
 
     if (nav) {
       if (scrollPosition >= narrowNavPosition) {
-        nav.classList.remove('pt-12');
-        nav.classList.add('py-3', 'shadow-md');
+        nav.classList.remove('lg:pt-12');
+        nav.classList.add('lg:py-3', 'shadow-md');
+        nav.classList.add('bg-white', 'dark:bg-black');
       } else {
-        nav.classList.add('pt-12');
+        nav.classList.add('lg:pt-12');
         nav.classList.remove('shadow-md');
-        nav.classList.remove('py-3');
+        nav.classList.remove('lg:py-3');
+        nav.classList.remove('bg-white', 'dark:bg-black');
       }
     }
+  });
+
+  window.addEventListener('load', () => {
+    const menuItems = document.querySelectorAll('.menu-item');
+    const path = document.location.pathname
+      .replaceAll('/', '')
+      .toLocaleLowerCase()
+      .trim(); // e.g. 'about'
+
+    menuItems.forEach((menuItem) => {
+      const linkPath = (menuItem as HTMLAnchorElement).href
+        .replace(document.location.origin, '')
+        .replaceAll('/', '')
+        .toLocaleLowerCase()
+        .trim();
+
+      if (linkPath === path) {
+        menuItem.classList.add(
+          'text-brand-black-800',
+          'dark:text-brand-primary-900'
+        );
+        menuItem.classList.remove('text-brand-dark-100', 'dark:text-white');
+      }
+    });
+  });
+
+  btnToggleMenu?.addEventListener('click', () => {
+    mobileNav?.classList.toggle('hidden');
+    mobileNav?.classList.toggle('flex');
+    menuOpenIcon?.classList.toggle('hidden');
+    menuCloseIcon?.classList.toggle('hidden');
+
+    menuIsOpen = !menuIsOpen;
   });
 </script>

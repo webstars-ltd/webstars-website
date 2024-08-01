@@ -1,0 +1,127 @@
+---
+import type { ComponentProps, ProductContent } from '@lib/types';
+import {
+  storyblokEditable,
+  renderRichText,
+  type ISbRichtext,
+} from '@storyblok/astro';
+
+import Divider from '@components/storyblok/divider.astro';
+import GlobalCta from './global-cta.astro';
+import ProductAuthor from '@components/products/product-author.astro';
+import PricingTable from '@components/products/pricing-table.astro';
+
+const { blok } = Astro.props as ComponentProps;
+const { slug } = Astro.params;
+
+const content = blok as ProductContent;
+
+// title
+// tagline
+// featured_image (image)
+// content (rich text)
+// quote
+// quote_name
+// author_byline
+// author_image
+// body (blocks)
+// table_header
+// table_subheader
+// pricing_table
+// table_caption
+// meta_fields
+---
+
+<header class="pb-16 max-sm:my-28" {...storyblokEditable(blok)}>
+  <div class="ws-container">
+    <h1
+      class="text-center text-5.5xl leading-tight sm:leading-13 font-sans font-semibold"
+    >
+      {content.title}
+    </h1>
+    <p
+      class="text-center tagline font-medium leading-13 text-5.25xl font-bitter text-brand-secondary-900 dark:text-brand-primary-900"
+    >
+      {content.tagline}
+    </p>
+  </div>
+</header>
+
+<!-- Project information -->
+<section class="ws-container">
+  <div class="lg:px-10 mb-24">
+    <figure class="bg-brand-secondary-100 mt-16 pt-32 px-10 pb-16">
+      <img
+        src={content.featured_image?.filename}
+        alt={content.featured_image?.alt}
+        class="object-fit block mx-auto w-full"
+      />
+    </figure>
+  </div>
+
+  <div
+    class="grid grid-cols-1 gap-12 md:gap-8 md:gap-y-28 md:grid-cols-12 max-sm:px-4 lg:px-10"
+  >
+    <div class="md:col-span-4">
+      <ProductAuthor
+        image={content.author_image?.filename ?? ''}
+        imageAlt={content.author_image?.alt ?? ''}
+        byline={content.author_byline}
+      />
+    </div>
+    <div class="md:col-span-7 md:col-start-6">
+      {
+        content && (
+          <div
+            class="insight-content product-content prose font-bitter max-w-none dark:text-white"
+            set:html={renderRichText(content.content as ISbRichtext)}
+          />
+        )
+      }
+    </div>
+  </div>
+</section>
+
+<Divider />
+
+<div class="mb-10 md:mb-32"></div>
+<div class="ws-container">
+  <!-- Pricing table -->
+  <PricingTable
+    header={content?.table_header}
+    subtitle={content?.table_subheader}
+    table={content?.pricing_table}
+  />
+  {
+    content?.table_caption && (
+      <div class="pt-6 max-w-4xl">
+        <p class="italic text-left text-sm text-brand-dark-100">
+          {content?.table_caption}
+        </p>
+      </div>
+    )
+  }
+</div>
+
+<div class="mb-10 md:mb-32"></div>
+
+{
+  content?.quote && (
+    <div class="ws-container mb-52">
+      {content && (
+        <blockquote class="flex flex-col gap-12 text-brand-primary-900 md:px-10">
+          <p class="text-3xl font-bitter font-[500] italic leading-10 tracking-[0.275px]">
+            "{content?.quote}"
+          </p>
+          <cite class="not-italic text-lg font-poppins justify-self-end text-right text-brand">
+            - {content?.quote_name}
+          </cite>
+        </blockquote>
+      )}
+    </div>
+  )
+}
+
+<div class="md:ws-container">
+  <GlobalCta />
+</div>

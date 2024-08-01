@@ -1,0 +1,30 @@
+---
+import type { ComponentProps } from '@lib/types';
+import InsightCard from '@components/insights/insight-card.svelte';
+
+const { blok } = Astro.props as ComponentProps;
+
+const insights = blok?.insights as any[];
+
+// insights (relations)
+// show_categories (boolean)
+---
+
+<section class="ws-container">
+  <div
+    class="grid grid-cols-1 gap-5 gap-y-10 py-16 sm:grid-cols-2 sm:gap-7 sm:gap-y-12 sm:mt-10 lg:mt-24"
+  >
+    {
+      insights?.map((insight) => (
+        <InsightCard
+          insight={insight.content}
+          showCategories={blok?.show_categories ?? true}
+          href={`/insights/${insight.slug}`}
+          title={insight.name ?? ''}
+          version="two"
+          client:load
+        />
+      ))
+    }
+  </div>
+</section>

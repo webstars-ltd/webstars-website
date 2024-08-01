@@ -1,0 +1,75 @@
+---
+Astro.response.headers.set(
+  'Cache-Control',
+  'public, max-age=300, s-maxage=3600'
+);
+// Tell the CDN to treat it as fresh for 5 minutes, then return a stale version while it revalidates
+Astro.response.headers.set(
+  'Netlify-CDN-Cache-Control',
+  'public, s-maxage=604800, stale-while-revalidate=604800'
+);
+
+import { type SbBlokData, storyblokEditable } from '@storyblok/astro';
+import type { ISbStoriesParams } from '@storyblok/js';
+import { isMap } from '@lib/helpers';
+import {
+  getStaticPageParams,
+  getStoryblokPageData,
+  isPageNotFound,
+} from '@lib/api';
+
+import BaseLayout from '@layouts/base-layout.astro';
+import SEOMeta from '@components/meta/seo-meta.astro';
+import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro';
+import InsightsDisplay from '@components/insights/insights-display.svelte';
+
+const pageOptions: ISbStoriesParams = {
+  per_page: 40,
+  starts_with: 'insights/',
+};
+
+export async function getStaticPaths() {
+  return await getStaticPageParams(pageOptions);
+}
+
+// /insights/ -- we're just loading the root Insights page here
+
+if (
+  await isPageNotFound('insights', {
+    starts_with: 'insights',
+  })
+)
+  return Astro.redirect('/404');
+
+const { data } = await getStoryblokPageData({
+  slug: 'insights',
+  resolution: 'url',
+  relations: [],
+});
+
+const blok = data?.story.content;
+const links = data?.links ?? [];
+
+let body: SbBlokData[] = [];
+
+if (blok.body && isMap<SbBlokData>(blok.body)) body = blok.body;
+---
+
+<BaseLayout>
+  <SEOMeta
+    slot="seo-tags"
+    type="page"
+    metaFields={data?.story.content.meta_fields}
+  />
+  <Fragment slot="main">
+    <InsightsDisplay client:load />
+
+    <div {...storyblokEditable(blok)}>
+      {
+        body?.map((blok: any) => {
+          return <StoryblokComponent blok={blok} links={links} />;
+        })
+      }
+    </div>
+  </Fragment>
+</BaseLayout>

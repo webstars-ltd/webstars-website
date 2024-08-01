@@ -1,0 +1,25 @@
+---
+import type { ComponentProps } from '@lib/types';
+import ProjectCard from '@components/projects/project-card.svelte';
+
+const { blok } = Astro.props as ComponentProps;
+
+const projects = blok?.projects as any[];
+
+// projects (relations)
+---
+
+<section class="ws-container">
+  <div class="flex flex-col py-16 gap-32">
+    {
+      projects?.map((project) => (
+        <ProjectCard
+          project={project.content}
+          href={`/projects/${project.slug}`}
+          title={project.name ?? ''}
+          client:load
+        />
+      ))
+    }
+  </div>
+</section>
