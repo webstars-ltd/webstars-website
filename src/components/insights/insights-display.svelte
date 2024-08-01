@@ -55,7 +55,15 @@
   onMount(async () => {
     const insightsData = await loadInsights();
     categories = await loadInsightCategories();
+
+    // sort insights data
     allInsights = insightsData?.insights;
+    allInsights.sort((a, b) => {
+      const date1 = new Date(a.first_published_at ?? a.published_at ?? a.created_at);
+      const date2 = new Date(b.first_published_at ?? b.published_at ?? a.created_at);
+      return date2.getTime() - date1.getTime();
+    });
+
     filteredInsights = allInsights;
 
     loading = false;
