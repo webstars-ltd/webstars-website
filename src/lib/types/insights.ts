@@ -1,4 +1,4 @@
-import type { MetaFields, SbAsset, SbStoryDefaults } from '.';
+import type { SbAsset, SbStoryDefaults } from '.';
 
 export type InsightContent = {
   title: string;
@@ -11,7 +11,8 @@ export type InsightContent = {
   author_byline: string;
   author_image: SbAsset;
   body: any[];
-  meta_fields: MetaFields;
+  meta_title: string;
+  meta_description: string;
 };
 
 export type Insight = SbStoryDefaults & {

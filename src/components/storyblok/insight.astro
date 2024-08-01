@@ -1,15 +1,15 @@
 ---
-import type { ComponentProps, InsightContent } from '@lib/types';
+import type { ComponentProps, InsightContent } from "@lib/types";
 import {
   storyblokEditable,
   renderRichText,
   type ISbRichtext,
-} from '@storyblok/astro';
+} from "@storyblok/astro";
 
-import Divider from '@components/storyblok/divider.astro';
-import GlobalCta from './global-cta.astro';
-import InsightCard from '@components/insights/insight-card.svelte';
-import AuthorDetails from '@components/insights/author-details.astro';
+import Divider from "@components/storyblok/divider.astro";
+import GlobalCta from "./global-cta.astro";
+import InsightCard from "@components/insights/insight-card.svelte";
+import AuthorDetails from "@components/insights/author-details.astro";
 
 const { blok, publishedDate } = Astro.props as ComponentProps;
 
@@ -25,7 +25,8 @@ const content = blok as InsightContent;
 // author_byline
 // author_image
 // body (blocks)
-// meta_fields
+// meta_title
+// meta_description
 ---
 
 <header class="pb-16 max-sm:my-28" {...storyblokEditable(blok)}>
@@ -60,8 +61,8 @@ const content = blok as InsightContent;
   >
     <div class="md:col-span-4">
       <AuthorDetails
-        image={content.author_image?.filename ?? ''}
-        imageAlt={content.author_image?.alt ?? ''}
+        image={content.author_image?.filename ?? ""}
+        imageAlt={content.author_image?.alt ?? ""}
         byline={content.author_byline}
         date={publishedDate}
       />
@@ -110,7 +111,7 @@ const content = blok as InsightContent;
           <InsightCard
             insight={insight.content}
             href={`/insights/${insight.slug}`}
-            title={insight.name ?? ''}
+            title={insight.name ?? ""}
             version="two"
             client:load
           />

@@ -1,15 +1,15 @@
 ---
-import type { ComponentProps, ProductContent } from '@lib/types';
+import type { ComponentProps, ProductContent } from "@lib/types";
 import {
   storyblokEditable,
   renderRichText,
   type ISbRichtext,
-} from '@storyblok/astro';
+} from "@storyblok/astro";
 
-import Divider from '@components/storyblok/divider.astro';
-import GlobalCta from './global-cta.astro';
-import ProductAuthor from '@components/products/product-author.astro';
-import PricingTable from '@components/products/pricing-table.astro';
+import Divider from "@components/storyblok/divider.astro";
+import GlobalCta from "./global-cta.astro";
+import ProductAuthor from "@components/products/product-author.astro";
+import PricingTable from "@components/products/pricing-table.astro";
 
 const { blok } = Astro.props as ComponentProps;
 const { slug } = Astro.params;
@@ -29,7 +29,8 @@ const content = blok as ProductContent;
 // table_subheader
 // pricing_table
 // table_caption
-// meta_fields
+// meta_title
+// meta_description
 ---
 
 <header class="pb-16 max-sm:my-28" {...storyblokEditable(blok)}>
@@ -64,8 +65,8 @@ const content = blok as ProductContent;
   >
     <div class="md:col-span-4">
       <ProductAuthor
-        image={content.author_image?.filename ?? ''}
-        imageAlt={content.author_image?.alt ?? ''}
+        image={content.author_image?.filename ?? ""}
+        imageAlt={content.author_image?.alt ?? ""}
         byline={content.author_byline}
       />
     </div>

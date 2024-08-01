@@ -1,31 +1,32 @@
 ---
 Astro.response.headers.set(
-  'Cache-Control',
-  'public, max-age=300, s-maxage=3600'
+  "Cache-Control",
+  "public, max-age=300, s-maxage=3600"
 );
 // Tell the CDN to treat it as fresh for 5 minutes, then return a stale version while it revalidates
 Astro.response.headers.set(
-  'Netlify-CDN-Cache-Control',
-  'public, s-maxage=604800, stale-while-revalidate=604800'
+  "Netlify-CDN-Cache-Control",
+  "public, s-maxage=604800, stale-while-revalidate=604800"
 );
 
-import { type SbBlokData, storyblokEditable } from '@storyblok/astro';
-import type { ISbStoriesParams } from '@storyblok/js';
-import { isMap } from '@lib/helpers';
+import { type SbBlokData, storyblokEditable } from "@storyblok/astro";
+import type { ISbStoriesParams } from "@storyblok/js";
+import { isMap } from "@lib/helpers";
 import {
   getStaticPageParams,
   getStoryblokPageData,
   isPageNotFound,
-} from '@lib/api';
+} from "@lib/api";
 
-import BaseLayout from '@layouts/base-layout.astro';
-import SEOMeta from '@components/meta/seo-meta.astro';
-import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro';
-import ProjectsDisplay from '@components/projects/projects-display.svelte';
+import BaseLayout from "@layouts/base-layout.astro";
+import SEOMeta from "@components/meta/seo-meta.astro";
+import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
+import ProjectsDisplay from "@components/projects/projects-display.svelte";
+import type { MetaFields } from "@lib/types";
 
 const pageOptions: ISbStoriesParams = {
   per_page: 40,
-  starts_with: 'projects/',
+  starts_with: "projects/",
 };
 
 export async function getStaticPaths() {
@@ -35,15 +36,15 @@ export async function getStaticPaths() {
 // /projects/ -- we're just loading the root Projects page here
 
 if (
-  await isPageNotFound('projects', {
-    starts_with: 'projects',
+  await isPageNotFound("projects", {
+    starts_with: "projects",
   })
 )
-  return Astro.redirect('/404');
+  return Astro.redirect("/404");
 
 const { data } = await getStoryblokPageData({
-  slug: 'projects',
-  resolution: 'url',
+  slug: "projects",
+  resolution: "url",
   relations: [],
 });
 
@@ -53,13 +54,18 @@ const links = data?.links ?? [];
 let body: SbBlokData[] = [];
 
 if (blok.body && isMap<SbBlokData>(blok.body)) body = blok.body;
+
+const metaFields: MetaFields = {
+  title: data?.story.content.meta_title,
+  description: data?.story.content.meta_description,
+};
 ---
 
 <BaseLayout>
   <SEOMeta
     slot="seo-tags"
     type="page"
-    metaFields={data?.story.content.meta_fields}
+    metaFields={metaFields}
   />
   <Fragment slot="main">
     <header class="pb-16" {...storyblokEditable(blok)}>

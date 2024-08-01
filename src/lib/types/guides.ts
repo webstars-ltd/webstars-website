@@ -1,4 +1,4 @@
-import type { MetaFields, SbAsset, SbStoryDefaults } from '.';
+import type { SbAsset, SbStoryDefaults } from '.';
 
 export type GuideContent = {
   title: string;
@@ -6,7 +6,8 @@ export type GuideContent = {
   featured_image: SbAsset;
   content: any;
   body: any[];
-  meta_fields: MetaFields;
+  meta_title: string;
+  meta_description: string;
 };
 
 export type Guide = SbStoryDefaults & {

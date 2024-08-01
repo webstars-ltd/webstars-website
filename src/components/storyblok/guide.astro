@@ -1,12 +1,12 @@
 ---
-import type { ComponentProps, GuideContent } from '@lib/types';
+import type { ComponentProps, GuideContent } from "@lib/types";
 import {
   storyblokEditable,
   renderRichText,
   type ISbRichtext,
-} from '@storyblok/astro';
+} from "@storyblok/astro";
 
-import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro';
+import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
 
 const { blok, links = [] } = Astro.props as ComponentProps;
 
@@ -17,7 +17,8 @@ const content = blok as GuideContent;
 // featured_image (image)
 // content (rich text)
 // body (blocks)
-// meta_fields
+// meta_title
+// meta_description
 ---
 
 <header class="pb-16 max-sm:my-28" {...storyblokEditable(blok)}>

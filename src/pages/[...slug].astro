@@ -38,7 +38,7 @@ const { data } = await getStoryblokPageData({
 
 const publishedDate = data.first_published_at ?? data.story.created_at;
 const updatedDate = data.story.published_at ?? data.story.created_at;
-const isArticle = data.story.component === 'article';
+const isArticle = data.story.component === 'insight';
 const metaFields = {
   title: data.story.content.meta_title ?? data.story.content.title,
   description:

@@ -1,4 +1,4 @@
-import type { MetaFields, SbAsset, SbStoryDefaults } from '.';
+import type { SbAsset, SbStoryDefaults } from '.';
 
 export type ProjectContent = {
   client: string;
@@ -14,7 +14,8 @@ export type ProjectContent = {
   services_content: any;
   results_content: any;
   related_projects: Project[];
-  meta_fields: MetaFields;
+  meta_title: string;
+  meta_description: string;
 };
 
 export type Project = SbStoryDefaults & {

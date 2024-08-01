@@ -1,4 +1,4 @@
-import type { MetaFields, SbAsset, SbStoryDefaults } from '.';
+import type { SbAsset, SbStoryDefaults } from '.';
 
 export type ProductContent = {
   title: string;
@@ -14,7 +14,8 @@ export type ProductContent = {
   table_subheader: string;
   pricing_table: any;
   table_caption: string;
-  meta_fields: MetaFields;
+  meta_title: string;
+  meta_description: string;
 };
 
 export type Product = SbStoryDefaults & {

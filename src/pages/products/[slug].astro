@@ -1,27 +1,28 @@
 ---
 Astro.response.headers.set(
-  'Cache-Control',
-  'public, max-age=300, s-maxage=3600'
+  "Cache-Control",
+  "public, max-age=300, s-maxage=3600"
 );
 // Tell the CDN to treat it as fresh for 5 minutes, then return a stale version while it revalidates
 Astro.response.headers.set(
-  'Netlify-CDN-Cache-Control',
-  'public, s-maxage=604800, stale-while-revalidate=604800'
+  "Netlify-CDN-Cache-Control",
+  "public, s-maxage=604800, stale-while-revalidate=604800"
 );
 
-import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro';
+import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
 import {
   getStaticPageParams,
   getStoryblokPageData,
   isPageNotFound,
-} from '@lib/api';
-import BaseLayout from '@layouts/base-layout.astro';
-import SEOMeta from '@components/meta/seo-meta.astro';
+} from "@lib/api";
+import BaseLayout from "@layouts/base-layout.astro";
+import SEOMeta from "@components/meta/seo-meta.astro";
+import type { MetaFields } from "@lib/types";
 
 export async function getStaticPaths() {
   const paths = await getStaticPageParams({
     per_page: 40,
-    starts_with: 'products/',
+    starts_with: "products/",
   });
 
   // Should return an object with urls like this:
@@ -32,7 +33,7 @@ export async function getStaticPaths() {
 
 const { slug } = Astro.params;
 
-const slugParts = ((slug ?? '') as string).split('/');
+const slugParts = ((slug ?? "") as string).split("/");
 
 // /products/some-path-here-like-test
 
@@ -43,7 +44,7 @@ if (
 ) {
   console.log("we can't find the page", slug);
 
-  return Astro.redirect('/404');
+  return Astro.redirect("/404");
 }
 
 let data: any;
@@ -51,7 +52,7 @@ let data: any;
 try {
   const { data: sbData } = await getStoryblokPageData({
     slug: `products/${slug}`,
-    resolution: 'url',
+    resolution: "url",
     relations: [],
   });
 
@@ -59,18 +60,19 @@ try {
 } catch (error: any) {
   const errorObj = JSON.parse(error);
 
-  if (errorObj && errorObj.status === 404) return Astro.redirect('/404');
+  if (errorObj && errorObj.status === 404) return Astro.redirect("/404");
 
-  return Astro.redirect('/500');
+  return Astro.redirect("/500");
 }
+
+const metaFields: MetaFields = {
+  title: data?.story.content.meta_title,
+  description: data?.story.content.meta_description,
+};
 ---
 
 <BaseLayout>
-  <SEOMeta
-    slot="seo-tags"
-    type="page"
-    metaFields={data?.story.content.meta_fields}
-  />
+  <SEOMeta slot="seo-tags" type="page" metaFields={metaFields} />
   <Fragment slot="main">
     <StoryblokComponent
       blok={data?.story.content}
