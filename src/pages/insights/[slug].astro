@@ -52,8 +52,8 @@ let publishedDate: string;
 let updatedDate: string;
 let articleMeta: ArticleMetaFields = {};
 let metaFields: MetaFields = {
-  title: '',
-  description: '',
+  title: "",
+  description: "",
 };
 
 try {
@@ -65,9 +65,11 @@ try {
 
   data = sbData;
 
-  metaFields.title =  data?.story.content.meta_title ?? data?.story.content.title;
-  metaFields.description = data?.story.content.meta_description ?? data?.story.content.tagline;
-  publishedDate = data?.first_published_at ?? data?.story.created_at;
+  metaFields.title =
+    data?.story.content.meta_title ?? data?.story.content.title;
+  metaFields.description =
+    data?.story.content.meta_description ?? data?.story.content.tagline;
+  publishedDate = data?.story.first_published_at ?? data?.story.created_at;
   updatedDate = data?.story.published_at ?? data?.story.created_at;
 
   articleMeta = {
@@ -77,7 +79,6 @@ try {
     authors: [data.story?.content?.author_byline],
     tags: data.story?.content?.categories ?? [],
   };
-
 } catch (error: any) {
   const errorObj = JSON.parse(error);
 

@@ -36,7 +36,7 @@ const { data } = await getStoryblokPageData({
   relations: ['selected_insights.insights', 'selected_projects.projects'],
 });
 
-const publishedDate = data.first_published_at ?? data.story.created_at;
+const publishedDate = data.story.first_published_at ?? data.story.created_at;
 const updatedDate = data.story.published_at ?? data.story.created_at;
 const isArticle = data.story.component === 'insight';
 const metaFields = {
