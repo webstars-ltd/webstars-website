@@ -1,15 +1,16 @@
 ---
-import type { MenuLinkItem } from '@lib/types';
-import { linkFinder, toSentenceCase } from '@lib/helpers';
-import { storyblokApi } from '@lib/api';
+import type { MenuLinkItem } from "@lib/types";
+import { linkFinder, toSentenceCase } from "@lib/helpers";
+import { storyblokApi } from "@lib/api";
 
-import ThemeToggle from '@components/theme-toggle.astro';
+import ThemeToggle from "@components/theme-toggle.astro";
 
-const { data } = await storyblokApi('cdn/stories/global', {
-  resolve_links: 'url',
-});
-const links = data.links;
-const mainMenu = data.story?.content?.main_menu;
+interface Props {
+  mainMenuItems: MenuLinkItem[];
+  links: any;
+}
+
+const { mainMenuItems, links } = Astro.props;
 ---
 
 <div
@@ -58,7 +59,7 @@ const mainMenu = data.story?.content?.main_menu;
       <div class="flex flex-row gap-4 items-center">
         <nav class="flex flex-row gap-5 max-md:hidden">
           {
-            mainMenu.map((link: MenuLinkItem) => (
+            mainMenuItems.map((link: MenuLinkItem) => (
               <a
                 href={linkFinder(link.link, links)}
                 class="text-brand-dark-100 text-[15px] font-semibold tracking-[0.2px] font-headings hover:text-brand-black-800 transition-colors duration-150 menu-item dark:hover:text-brand-primary-900 dark:text-white"
@@ -83,7 +84,7 @@ const mainMenu = data.story?.content?.main_menu;
       id="mobile-nav"
     >
       {
-        mainMenu.map((link: MenuLinkItem) => (
+        mainMenuItems.map((link: MenuLinkItem) => (
           <a
             href={linkFinder(link.link, links)}
             class="text-brand-dark-100 text-lg font-semibold tracking-[0.2px] font-headings hover:text-brand-black-800 transition-colors duration-150 menu-item dark:hover:text-brand-primary-900 dark:text-white"
@@ -97,60 +98,60 @@ const mainMenu = data.story?.content?.main_menu;
 </div>
 
 <script>
-  const nav = document.getElementById('main-nav');
-  const mobileNav = document.getElementById('mobile-nav');
-  const btnToggleMenu = document.getElementById('btn-toggle-menu');
-  const menuOpenIcon = document.getElementById('toggle-menu-icon-open');
-  const menuCloseIcon = document.getElementById('toggle-menu-icon-close');
+  const nav = document.getElementById("main-nav");
+  const mobileNav = document.getElementById("mobile-nav");
+  const btnToggleMenu = document.getElementById("btn-toggle-menu");
+  const menuOpenIcon = document.getElementById("toggle-menu-icon-open");
+  const menuCloseIcon = document.getElementById("toggle-menu-icon-close");
   let menuIsOpen = false;
 
-  window.addEventListener('scroll', () => {
+  window.addEventListener("scroll", () => {
     const scrollPosition = window.scrollY,
       narrowNavPosition = 100;
 
     if (nav) {
       if (scrollPosition >= narrowNavPosition) {
-        nav.classList.remove('lg:pt-12');
-        nav.classList.add('lg:py-3', 'shadow-md');
-        nav.classList.add('bg-white', 'dark:bg-black');
+        nav.classList.remove("lg:pt-12");
+        nav.classList.add("lg:py-3", "shadow-md");
+        nav.classList.add("bg-white", "dark:bg-black");
       } else {
-        nav.classList.add('lg:pt-12');
-        nav.classList.remove('shadow-md');
-        nav.classList.remove('lg:py-3');
-        nav.classList.remove('bg-white', 'dark:bg-black');
+        nav.classList.add("lg:pt-12");
+        nav.classList.remove("shadow-md");
+        nav.classList.remove("lg:py-3");
+        nav.classList.remove("bg-white", "dark:bg-black");
       }
     }
   });
 
-  window.addEventListener('load', () => {
-    const menuItems = document.querySelectorAll('.menu-item');
+  window.addEventListener("load", () => {
+    const menuItems = document.querySelectorAll(".menu-item");
     const path = document.location.pathname
-      .replaceAll('/', '')
+      .replaceAll("/", "")
       .toLocaleLowerCase()
       .trim(); // e.g. 'about'
 
     menuItems.forEach((menuItem) => {
       const linkPath = (menuItem as HTMLAnchorElement).href
-        .replace(document.location.origin, '')
-        .replaceAll('/', '')
+        .replace(document.location.origin, "")
+        .replaceAll("/", "")
         .toLocaleLowerCase()
         .trim();
 
       if (linkPath === path) {
         menuItem.classList.add(
-          'text-brand-black-800',
-          'dark:text-brand-primary-900'
+          "text-brand-black-800",
+          "dark:text-brand-primary-900"
         );
-        menuItem.classList.remove('text-brand-dark-100', 'dark:text-white');
+        menuItem.classList.remove("text-brand-dark-100", "dark:text-white");
       }
     });
   });
 
-  btnToggleMenu?.addEventListener('click', () => {
-    mobileNav?.classList.toggle('hidden');
-    mobileNav?.classList.toggle('flex');
-    menuOpenIcon?.classList.toggle('hidden');
-    menuCloseIcon?.classList.toggle('hidden');
+  btnToggleMenu?.addEventListener("click", () => {
+    mobileNav?.classList.toggle("hidden");
+    mobileNav?.classList.toggle("flex");
+    menuOpenIcon?.classList.toggle("hidden");
+    menuCloseIcon?.classList.toggle("hidden");
 
     menuIsOpen = !menuIsOpen;
   });

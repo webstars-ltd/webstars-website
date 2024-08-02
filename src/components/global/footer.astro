@@ -1,10 +1,20 @@
 ---
-import { toSentenceCase } from '@lib/helpers';
-import { storyblokApi } from '@lib/api';
-import type { MenuLinkItem } from '@lib/types';
+import { toSentenceCase } from "@lib/helpers";
+import { storyblokApi } from "@lib/api";
+import type { MenuLinkItem } from "@lib/types";
 
-const { data } = await storyblokApi('cdn/stories/global', {
-  resolve_links: 'url',
+interface Props {
+  quote: string;
+  cite: string;
+}
+
+const {
+  quote = "Your professionalism, knowledge, and ease have made the collaboration delightful",
+  cite = "Sophia Boutalbi, International Group of P&I Clubs",
+} = Astro.props;
+
+const { data } = await storyblokApi("cdn/stories/global", {
+  resolve_links: "url",
 });
 const contactDetails = data.story?.content?.contact_details[0];
 const socialLinks = data.story?.content?.social_links;
@@ -26,11 +36,10 @@ const socialLinks = data.story?.content?.social_links;
           <p
             class="text-3xl font-bitter font-[500] italic leading-9 tracking-[0.275px]"
           >
-            "Your professionalism, knowledge, and ease have made the
-            collaboration delightful."
+            "{quote}"
           </p>
           <cite class="not-italic text-base font-semibold">
-            Sophia Boutalbi, International Group of P&I Clubs
+            {cite}
           </cite>
         </blockquote>
       </div>
@@ -43,7 +52,7 @@ const socialLinks = data.story?.content?.social_links;
               <address class="max-sm:mb-3 mb-5 not-italic">
                 {
                   contactDetails.headquarters_address
-                    .split(',')
+                    .split(",")
                     .map((line: string) => (
                       <>
                         {line}
@@ -85,7 +94,7 @@ const socialLinks = data.story?.content?.social_links;
                 {
                   socialLinks.map((link: MenuLinkItem) => (
                     <a
-                      href={link?.link?.url ?? '/'}
+                      href={link?.link?.url ?? "/"}
                       class="link link-hover block"
                       target="_blank"
                     >

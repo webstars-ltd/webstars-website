@@ -2,7 +2,7 @@
 import "@assets/styles/global.css";
 
 import { storyblokApi } from "@lib/api";
-import type { MenuLinkItem } from "@lib/types";
+import type { MenuLinkItem, FooterQuoteItem } from "@lib/types";
 
 import BaseMeta from "@components/meta/base-meta.astro";
 import Icons from "@components/meta/icons.astro";
@@ -16,6 +16,16 @@ const { data } = await storyblokApi("cdn/stories/global", {
 
 const links = data.links;
 const mainMenu: Array<MenuLinkItem> = data.story?.content?.main_menu;
+const footerQuotes: Array<FooterQuoteItem> = data.story?.content?.footer_quotes;
+
+const footerQuote: FooterQuoteItem | null =
+  footerQuotes?.length > 0
+    ? footerQuotes[Math.floor(Math.random() * footerQuotes.length)]
+    : {
+        quote:
+          "Your professionalism, knowledge, and ease have made the collaboration delightful",
+        cite: "Sophia Boutalbi, International Group of P&I Clubs",
+      };
 ---
 
 <html lang="en" data-theme="alpha" class="scroll-smooth">
@@ -55,6 +65,6 @@ const mainMenu: Array<MenuLinkItem> = data.story?.content?.main_menu;
     <main class="pt-44 sm:pt-48 lg:pt-72">
       <slot name="main" />
     </main>
-    <Footer />
+    <Footer quote={footerQuote.quote} cite={footerQuote.cite} />
   </body>
 </html>

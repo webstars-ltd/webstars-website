@@ -18,6 +18,11 @@ export type MenuLinkItem = {
   link_text: string;
 };
 
+export type FooterQuoteItem = {
+  quote: string;
+  cite: string;
+};
+
 export type SbContent = {
   id: string;
   url: string;
