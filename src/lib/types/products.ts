@@ -2,7 +2,9 @@ import type { SbAsset, SbStoryDefaults } from '.';
 
 export type ProductContent = {
   title: string;
+  list_title: string;
   tagline: string;
+  product_type: string;
   featured_image: SbAsset;
   content: any;
   quote: string;
