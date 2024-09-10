@@ -6,9 +6,10 @@
   export let title: string;
   export let version: "one" | "two" = "one";
 
+  const tagline = product.tagline ? `: ${product.tagline}` : "";
   const productTitle = product.list_title
     ? product.list_title
-    : `${product.title ?? title}: ${product.tagline}`;
+    : `${product.title ?? title}${tagline}`;
 </script>
 
 <a
