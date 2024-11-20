@@ -1,16 +1,17 @@
 ---
 import type { MenuLinkItem } from "@lib/types";
 import { linkFinder, toSentenceCase } from "@lib/helpers";
-import { storyblokApi } from "@lib/api";
 
 import ThemeToggle from "@components/theme-toggle.astro";
 
 interface Props {
-  mainMenuItems: MenuLinkItem[];
-  links: any;
+	mainMenuItems: MenuLinkItem[];
+	links: any;
 }
 
 const { mainMenuItems, links } = Astro.props;
+
+console.log(mainMenuItems);
 ---
 
 <div
@@ -61,7 +62,7 @@ const { mainMenuItems, links } = Astro.props;
           {
             mainMenuItems.map((link: MenuLinkItem) => (
               <a
-                href={linkFinder(link.link, links)}
+                href={link?.link.linktype === 'url' ? link.link.url : linkFinder(link.link, links)}
                 class="text-brand-dark-100 text-[15px] font-semibold tracking-[0.2px] font-headings hover:text-brand-black-800 transition-colors duration-150 menu-item dark:hover:text-brand-primary-900 dark:text-white"
               >
                 {toSentenceCase(link.link_text)}
