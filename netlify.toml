@@ -10,3 +10,8 @@ command = "pnpm run dev"
   to = "/"
   status = 301
   force = true
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Strict-Transport-Security = 'max-age=63072000; includeSubDomains; preload'
