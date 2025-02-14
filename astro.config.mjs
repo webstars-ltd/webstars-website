@@ -80,6 +80,17 @@ export default defineConfig({
 			sri: {
 				hashesModule: modulePath,
 				enableMiddleware: true,
+
+				scriptsAllowListUrls: [
+					"https://www.googletagmanager.com/ns.html",
+					"https://www.googletagmanager.com/gtm.js",
+					"https://fast.wistia.net/assets/external/E-v1.js",
+					"https://f.nativeforms.com/JZDdV1jZm80UPJnWH1Db",
+				],
+				stylesAllowListUrls: [
+					"https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i",
+					"https://fonts.googleapis.com/css?family=Bitter:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i",
+				],
 			},
 			securityHeaders: {
 				// This option is required to configure CSP headers for your static
