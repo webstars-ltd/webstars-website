@@ -1,5 +1,5 @@
 [build]
-command = "pnpm run build"
+command = "pnpm run build && cp ./_headers ./dist/_headers"
 publish = "dist"
 
 [dev]
