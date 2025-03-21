@@ -10,3 +10,11 @@ command = "pnpm run dev"
   to = "/"
   status = 301
   force = true
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    Content-Security-Policy = "frame-ancestors 'self';"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "geolocation=(self 'https://www.webstarsltd.com'), microphone=()"
