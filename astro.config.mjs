@@ -22,6 +22,15 @@ const modulePath = resolve(rootDir, "src", "generated", "sriHashes.mjs");
 // https://astro.build/config
 export default defineConfig({
 	output: "server",
+	server: {
+		headers: {
+			"X-Frame-Options": "SAMEORIGIN",
+			"Referrer-Policy": "strict-origin-when-cross-origin",
+			"Permissions-Policy":
+				"geolocation=(self 'https://www.webstarsltd.com'), microphone=()",
+			"Content-Security-Policy": "frame-ancestors 'self';",
+		},
+	},
 	adapter: netlify({ cacheOnDemandPages: true }),
 	site: "https://webstarsltd.com",
 	image: {
