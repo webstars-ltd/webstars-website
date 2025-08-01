@@ -88,18 +88,18 @@ export default defineConfig({
 			],
 		}),
 		shield({
-			sri: {
-				enableMiddleware: true, // MUST be enabled for dynamic pages!
-				hashesModule: modulePath, // SHOULD be set!
-			},
-			securityHeaders: {
-				enableOnStaticPages: { provider: "netlify" },
-				contentSecurityPolicy: {
-					cspDirectives: {
-						"frame-ancestors": "'self'",
-					},
-				},
-			},
+			// sri: {
+			// 	enableMiddleware: true, // MUST be enabled for dynamic pages!
+			// 	hashesModule: modulePath, // SHOULD be set!
+			// },
+			// securityHeaders: {
+			// 	enableOnStaticPages: { provider: "netlify" },
+			// 	contentSecurityPolicy: {
+			// 		cspDirectives: {
+			// 			"frame-ancestors": "'self'",
+			// 		},
+			// 	},
+			// },
 		}),
 	],
 	vite: {
