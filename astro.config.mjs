@@ -88,38 +88,18 @@ export default defineConfig({
 			],
 		}),
 		shield({
-			// sri: {
-			// 	hashesModule: modulePath,
-			// 	enableMiddleware: true,
-			// 	scriptsAllowListUrls: [
-			// 		"https://www.googletagmanager.com/ns.html",
-			// 		"https://www.googletagmanager.com/gtm.js",
-			// 		"https://fast.wistia.net/assets/external/E-v1.js",
-			// 		"https://f.nativeforms.com/JZDdV1jZm80UPJnWH1Db",
-			// 	],
-			// 	stylesAllowListUrls: [
-			// 		"https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i",
-			// 		"https://fonts.googleapis.com/css?family=Bitter:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i",
-			// 	],
-			// },
-			// securityHeaders: {
-			// 	// This option is required to configure CSP headers for your static
-			// 	// content on Netlify.
-			// 	enableOnStaticPages: { provider: "netlify" },
-			// 	// - If set, it controls how the CSP (Content Security Policy) header
-			// 	//   will be generated.
-			// 	// - If not set, no CSP header will be configured for your static
-			// 	//   content (there is no need to specify its inner options).
-			// 	contentSecurityPolicy: {
-			// 		// - If set, it controls the "default" CSP directives (they can be
-			// 		//   overriden at runtime).
-			// 		// - If not set, Astro-Shield will use a minimal set of default
-			// 		//   directives.
-			// 		cspDirectives: {
-			// 			"default-src": "'none'",
-			// 		},
-			// 	},
-			// },
+			sri: {
+				enableMiddleware: true, // MUST be enabled for dynamic pages!
+				hashesModule: modulePath, // SHOULD be set!
+			},
+			securityHeaders: {
+				enableOnStaticPages: { provider: "netlify" },
+				contentSecurityPolicy: {
+					cspDirectives: {
+						"frame-ancestors": "'self'",
+					},
+				},
+			},
 		}),
 	],
 	vite: {
