@@ -1,3 +1,4 @@
+import { resolve } from "node:path";
 import { defineConfig } from "astro/config";
 import tailwind from "@astrojs/tailwind";
 import svelte from "@astrojs/svelte";
@@ -7,6 +8,7 @@ import storyblok from "@storyblok/astro";
 import basicSsl from "@vitejs/plugin-basic-ssl";
 import robotsTxt from "astro-robots-txt";
 import { loadEnv } from "vite";
+import { shield } from "@kindspells/astro-shield";
 
 const { STORYBLOK_TOKEN_PREVIEW, STORYBLOK_TOKEN_PUBLISHED, PUBLIC_ENV } =
 	loadEnv("", process.cwd(), "");
@@ -14,9 +16,21 @@ const { STORYBLOK_TOKEN_PREVIEW, STORYBLOK_TOKEN_PUBLISHED, PUBLIC_ENV } =
 // Set up development previews using public environment variables
 const isPreviewMode = PUBLIC_ENV === "preview" || PUBLIC_ENV === "development";
 
+const rootDir = new URL(".", import.meta.url).pathname;
+const modulePath = resolve(rootDir, "src", "generated", "sriHashes.mjs");
+
 // https://astro.build/config
 export default defineConfig({
 	output: "server",
+	server: {
+		headers: {
+			"X-Frame-Options": "SAMEORIGIN",
+			"Referrer-Policy": "strict-origin-when-cross-origin",
+			"Permissions-Policy":
+				"geolocation=(self 'https://www.webstarsltd.com'), microphone=()",
+			"Content-Security-Policy": "frame-ancestors 'self';",
+		},
+	},
 	adapter: netlify({ cacheOnDemandPages: true }),
 	site: "https://webstarsltd.com",
 	image: {
@@ -70,6 +84,40 @@ export default defineConfig({
 					disallow: isPreviewMode ? "/" : "",
 				},
 			],
+		}),
+		shield({
+			// sri: {
+			// 	hashesModule: modulePath,
+			// 	enableMiddleware: true,
+			// 	scriptsAllowListUrls: [
+			// 		"https://www.googletagmanager.com/ns.html",
+			// 		"https://www.googletagmanager.com/gtm.js",
+			// 		"https://fast.wistia.net/assets/external/E-v1.js",
+			// 		"https://f.nativeforms.com/JZDdV1jZm80UPJnWH1Db",
+			// 	],
+			// 	stylesAllowListUrls: [
+			// 		"https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i",
+			// 		"https://fonts.googleapis.com/css?family=Bitter:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i",
+			// 	],
+			// },
+			// securityHeaders: {
+			// 	// This option is required to configure CSP headers for your static
+			// 	// content on Netlify.
+			// 	enableOnStaticPages: { provider: "netlify" },
+			// 	// - If set, it controls how the CSP (Content Security Policy) header
+			// 	//   will be generated.
+			// 	// - If not set, no CSP header will be configured for your static
+			// 	//   content (there is no need to specify its inner options).
+			// 	contentSecurityPolicy: {
+			// 		// - If set, it controls the "default" CSP directives (they can be
+			// 		//   overriden at runtime).
+			// 		// - If not set, Astro-Shield will use a minimal set of default
+			// 		//   directives.
+			// 		cspDirectives: {
+			// 			"default-src": "'none'",
+			// 		},
+			// 	},
+			// },
 		}),
 	],
 	vite: {

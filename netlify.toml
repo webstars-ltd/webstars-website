@@ -1,5 +1,5 @@
 [build]
-command = "pnpm run build"
+command = "pnpm run build && cp ./_headers ./dist/_headers"
 publish = "dist"
 
 [dev]
@@ -14,4 +14,8 @@ command = "pnpm run dev"
 [[headers]]
   for = "/*"
   [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    Content-Security-Policy = "frame-ancestors 'self';"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "geolocation=(self 'https://www.webstarsltd.com'), microphone=()"
     Strict-Transport-Security = 'max-age=63072000; includeSubDomains; preload'

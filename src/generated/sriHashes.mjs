@@ -4,7 +4,11 @@ export const inlineScriptHashes = /** @type {string[]} */ ([])
 
 export const inlineStyleHashes = /** @type {string[]} */ ([])
 
-export const extScriptHashes = /** @type {string[]} */ ([])
+export const extScriptHashes = /** @type {string[]} */ ([
+	'sha256-6PLe1ddMDuX0J6ILZxXmW8ee1cT8Z/sA2JAFUVyO/mM=',
+	'sha256-9ccQhVJzHpPnGFPVfWItsaX9rZHvxg7Cz3sJYplh3Dg=',
+	'sha256-AD7F/i0UxnLdITfAw4l4KUdMkXPoRw90lkMI7xYLSa4=',
+])
 
 export const extStyleHashes = /** @type {string[]} */ ([
 	'sha256-4QQlrXaLyY/x+ycqCshCD50boi8GEsCP8QEMlQgP/n4=',
@@ -12,10 +16,8 @@ export const extStyleHashes = /** @type {string[]} */ ([
 	'sha256-663In73GM2V9Thh0HEoV5l/h2Qku+QGpaVHEHmlLFSA=',
 	'sha256-D2t4GW33Hy8P60tE+gx0AF5HCXpJP9iYEWJw7Fizo6w=',
 	'sha256-E3sc886pqK23iENDqaXd3fQoD1kVP3TceC+3978NBRk=',
-	'sha256-LE4b6sb/IDDG1FMr/uqFfx8LAu8u+yVVQpDGbGMMKKE=',
-	'sha256-LQ6pJHst/Odf4UWHWqSJ5xIaYOoGkeYLArakW0apA4I=',
-	'sha256-MV1B/CaoeiOmP63Yk3IGJdOgeF0jjH/v0UDF/rqmu3s=',
-	'sha256-SR3IF5vfynhLxy6ooZmT6BKGlhNVQot1Oj4JQy4cNNs=',
+	'sha256-IURwjLQ4PzBLeHntp4pQIJX3KHWQASLvxwnZzeQ3bw8=',
+	'sha256-U86GJMoD2UUVOpLK77WNlz4gbxb3b2aCbIyCUQ6juHU=',
 	'sha256-WdourkpQW8lqvQJfSNL44qmFU3Qkggx5CKx+/yK+H+E=',
 	'sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=',
 	'sha256-Ys9cp1OHGPhWp0mqqeQ6jTxsbiapf2cbO/S3IHSI7UY=',
@@ -33,6 +35,10 @@ export const perPageSriHashes =
 
 export const perResourceSriHashes = {
 	scripts: /** @type {Record<string,string>} */ ({
+		'https://www.googletagmanager.com/ns.html': 'sha256-6PLe1ddMDuX0J6ILZxXmW8ee1cT8Z/sA2JAFUVyO/mM=',
+		'https://www.googletagmanager.com/gtm.js': 'sha256-6PLe1ddMDuX0J6ILZxXmW8ee1cT8Z/sA2JAFUVyO/mM=',
+		'https://fast.wistia.net/assets/external/E-v1.js': 'sha256-9ccQhVJzHpPnGFPVfWItsaX9rZHvxg7Cz3sJYplh3Dg=',
+		'https://f.nativeforms.com/JZDdV1jZm80UPJnWH1Db': 'sha256-AD7F/i0UxnLdITfAw4l4KUdMkXPoRw90lkMI7xYLSa4=',
 	}),
 	styles: /** @type {Record<string,string>} */ ({
 		'/css/all.css': 'sha256-LQ6pJHst/Odf4UWHWqSJ5xIaYOoGkeYLArakW0apA4I=',
@@ -53,5 +59,7 @@ export const perResourceSriHashes = {
 		'/css/v4-shims.min.css': 'sha256-WdourkpQW8lqvQJfSNL44qmFU3Qkggx5CKx+/yK+H+E=',
 		'/css/v5-font-face.css': 'sha256-l5O4BpnTjo+XvkLdN8AW1Wy6t9mKWP2toBXitwmd8So=',
 		'/css/v5-font-face.min.css': 'sha256-lERp5tsDmnd6acuijT5A/xmL4xHrqAUwRxNSMlLXO7Q=',
+		'https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i': 'sha256-IURwjLQ4PzBLeHntp4pQIJX3KHWQASLvxwnZzeQ3bw8=',
+		'https://fonts.googleapis.com/css?family=Bitter:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i': 'sha256-U86GJMoD2UUVOpLK77WNlz4gbxb3b2aCbIyCUQ6juHU=',
 	}),
 }
