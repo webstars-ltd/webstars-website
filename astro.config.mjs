@@ -29,6 +29,8 @@ export default defineConfig({
 			"Permissions-Policy":
 				"geolocation=(self 'https://www.webstarsltd.com'), microphone=()",
 			"Content-Security-Policy": "frame-ancestors 'self';",
+			"Strict-Transport-Security":
+				"max-age=63072000; includeSubDomains; preload",
 		},
 	},
 	adapter: netlify({ cacheOnDemandPages: true }),
