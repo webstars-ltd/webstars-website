@@ -62,28 +62,34 @@ const footerQuote: FooterQuoteItem | null =
     </main>
     <Footer quote={footerQuote.quote} cite={footerQuote.cite} />
 
-    <script is:inline>
-      document.addEventListener('DOMContentLoaded', function() {
+    <script type="text/javascript" is:inline>
+      function removeTextNode () {
+        console.log("Checking for rogue script text...");
+        
         // 1. Define the unique part of the script string to look for
-        const badStringStart = "name: 'marketing', label: 'Marketing',";
+        const badStringStart = "name: 'marketing'";
 
         // 2. Target the main content container (or body) to search within
         const targetNode = document.body;
 
         // 3. Loop through all child nodes of the target
         for (let i = 0; i < targetNode.childNodes.length; i++) {
-            const node = targetNode.childNodes[i];
+          const node = targetNode.childNodes[i];
 
-            // 4. Check if the node is a Text Node (nodeType 3)
-            // AND if its content starts with the bad string
-            if (node.nodeType === 3 && node.nodeValue?.trim().startsWith(badStringStart)) {
-                // 5. If it matches, remove the text node from the DOM
-                targetNode.removeChild(node);
-                console.log("Rogue script text removed.");
-                // Assuming there's only one, you can exit the loop
-                break; 
-            }
+          // 4. Check if the node is a Text Node (nodeType 3)
+          // AND if its content starts with the bad string
+          if (node.nodeType === 3 && node.nodeValue?.trim().startsWith(badStringStart)) {
+              // 5. If it matches, remove the text node from the DOM
+              targetNode.removeChild(node);
+              console.log("Rogue script text removed.");
+              // Assuming there's only one, you can exit the loop
+              break; 
+          }
         }
+      }
+
+      document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(removeTextNode, 1000); // Delay to ensure the DOM is fully loaded
       });
     </script>
   </body>
