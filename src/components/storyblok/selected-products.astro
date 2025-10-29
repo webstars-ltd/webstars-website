@@ -1,0 +1,28 @@
+---
+import ProductCard from '@components/products/product-card.svelte';
+import type { ComponentProps } from '@lib/types';
+
+const { blok } = Astro.props as ComponentProps;
+
+const products = blok?.products as any[];
+
+// products (relations)
+---
+
+<section class="ws-container">
+  <div
+    class="grid grid-cols-1 gap-5 gap-y-10 py-16 sm:grid-cols-2 sm:gap-7 sm:gap-y-12 sm:mt-10 lg:mt-24"
+  >
+    {
+      products?.map(({ content: product, slug, name }, i) => (
+        <ProductCard
+          {product}
+          href={`/products/${slug}`}
+          title={name ?? ''}
+          version={i % 2 === 0 ? 'one' : 'two'}
+        />
+      ))
+    }
+  </div>
+</section>
+

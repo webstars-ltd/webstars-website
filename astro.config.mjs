@@ -72,6 +72,7 @@ export default defineConfig({
 				guide: "components/storyblok/guide",
 				selected_insights: "components/storyblok/selected-insights",
 				selected_projects: "components/storyblok/selected-projects",
+				selected_products: "components/storyblok/selected-products",
 				call_to_action: "components/storyblok/call-to-action",
 				quote: "components/storyblok/quote",
 			},
