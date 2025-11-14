@@ -65,6 +65,11 @@
   .tagline {
     @apply heading-1 text-brand-primary-900 font-semibold dark:text-white;
   }
+
+  /* Hides all spurious inputs appended to document by...Google? */
+  footer ~ input {
+    display: none !important;
+  }
 }
 
 @layer components {
