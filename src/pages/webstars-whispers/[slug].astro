@@ -1,0 +1,107 @@
+---
+Astro.response.headers.set(
+  "Cache-Control",
+  "public, max-age=300, s-maxage=3600"
+);
+// Tell the CDN to treat it as fresh for 5 minutes, then return a stale version while it revalidates
+Astro.response.headers.set(
+  "Netlify-CDN-Cache-Control",
+  "public, s-maxage=604800, stale-while-revalidate=604800"
+);
+
+import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
+import {
+  getStaticPageParams,
+  getStoryblokPageData,
+  isPageNotFound,
+} from "@lib/api";
+import BaseLayout from "@layouts/base-layout.astro";
+import SEOMeta from "@components/meta/seo-meta.astro";
+import type { ArticleMetaFields, MetaFields } from "@lib/types";
+
+export async function getStaticPaths() {
+  const paths = await getStaticPageParams({
+    per_page: 40,
+    starts_with: "webstars-whispers/",
+  });
+
+  // Should return an object with urls like this:
+  // '/webstars-whispers/out-of-date-or-a-classic'
+
+  return [...paths];
+}
+
+const { slug } = Astro.params;
+
+const slugParts = ((slug ?? "") as string).split("/");
+
+// /webstars-whispers/out-of-date-or-a-classic
+
+if (
+  await isPageNotFound(slugParts[slugParts.length - 1], {
+    starts_with: `webstars-whispers/${slug}`,
+  })
+) {
+  console.log("we can't find the page", slug);
+
+  return Astro.redirect("/404");
+}
+
+let data: any;
+let publishedDate: string;
+let updatedDate: string;
+let articleMeta: ArticleMetaFields = {};
+let metaFields: MetaFields = {
+  title: "",
+  description: "",
+};
+
+try {
+  const { data: sbData } = await getStoryblokPageData({
+    slug: `webstars-whispers/${slug}`,
+    resolution: "url",
+    relations: [],
+  });
+
+  data = sbData;
+
+  metaFields.title =
+    data?.story.content.meta_title ?? data?.story.content.title;
+  metaFields.description =
+    data?.story.content.meta_description ?? data?.story.content.tagline;
+  publishedDate = data?.story.first_published_at ?? data?.story.created_at;
+  updatedDate = data?.story.published_at ?? data?.story.created_at;
+
+  articleMeta = {
+    publishedTime: publishedDate,
+    modifiedTime: updatedDate,
+    section: "Webstars Whispers",
+    authors: [data.story?.content?.author_byline],
+    tags: [],
+  };
+} catch (error: any) {
+  const errorObj = JSON.parse(error);
+
+  if (errorObj && errorObj.status === 404) return Astro.redirect("/404");
+
+  return Astro.redirect("/500");
+}
+---
+
+<BaseLayout>
+  <SEOMeta
+    slot="seo-tags"
+    type="article"
+    metaFields={metaFields}
+    articleFields={articleMeta}
+  />
+  <Fragment slot="main">
+    <StoryblokComponent
+      blok={data?.story.content}
+      links={data?.links}
+      id={data?.story.id}
+      uuid={data?.story.uuid}
+      publishedDate={publishedDate ?? updatedDate}
+    />
+  </Fragment>
+</BaseLayout>
