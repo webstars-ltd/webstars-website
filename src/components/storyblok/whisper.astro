@@ -1,5 +1,6 @@
 ---
 import type { ComponentProps, WhisperContent } from "@lib/types";
+import { storyblokApi } from "@lib/api";
 import {
   storyblokEditable,
   renderRichText,
@@ -9,10 +10,16 @@ import {
 import Divider from "@components/storyblok/divider.astro";
 import GlobalCta from "./global-cta.astro";
 import AuthorDetails from "@components/whispers/author-details.astro";
+import WhispersDisplay from "@components/whispers/whispers-display.svelte";
 
 const { blok, publishedDate } = Astro.props as ComponentProps;
 
 const content = blok as WhisperContent;
+
+const { data } = await storyblokApi("cdn/stories/global", {
+  resolve_links: "url",
+});
+const whisperIntro = data.story?.content?.whisper_list_intro;
 
 // title
 // tagline
@@ -56,11 +63,13 @@ const content = blok as WhisperContent;
   <div
     class="grid grid-cols-1 gap-12 md:gap-8 max-sm:px-4 lg:px-10"
   >
-    <AuthorDetails
-      byline={content.author_byline}
-      date={publishedDate}
-    />
-    
+    {content.author_byline && (
+      <AuthorDetails
+        byline={content.author_byline}
+        date={publishedDate}
+      />
+    )}
+      
     {
       content && (
         <div
@@ -75,7 +84,7 @@ const content = blok as WhisperContent;
 <Divider />
 
 <div class="mb-10 md:mb-32"></div>
-<div class="ws-container mb-52">
+<div class="ws-container mb-20">
   <div class="md:px-10">
     {
       content && (
@@ -88,7 +97,11 @@ const content = blok as WhisperContent;
   </div>
 </div>
 
-<div class="md:ws-container -mb-48">
+<div class="mb-16">
+  <WhispersDisplay intro={whisperIntro} client:load />
+</div>
+
+<div class="md:ws-container mb-16">
   <GlobalCta />
 </div>
 

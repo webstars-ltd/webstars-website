@@ -11,28 +11,40 @@
 <a
   {href}
   class="
-    whisper-card
-    h-[400px]
+    insight-card
+    min-h-[300px]
     block
+    bg-brand-secondary-100
+    text-brand-secondary-900
     p-8
+
+    hover:text-brand-secondary-900
+
+    transition-all
+    duration-300
+    ease-linear
+
+    has-card-hover-effect
 
     dark:text-brand-primary-900
   "
 >
-  <div class="flex flex-col sm:flex-row gap-4 h-full">
-    <div class="sm:w-1/3 space-y-2">
-      <h2
-        class="heading-3 font-[500] leading-10"
-      >
-        Webstars Whisper: <br /> {whisper.title ?? title}
-      </h2>
+  <div class="flex flex-col gap-4 h-full">
+    <p class="flex flex-row flex-wrap gap-1">
+      {#if whisper.author_byline}
+        <span>{whisper.author_byline}</span>,
+      {/if}
       <time datetime={date}>
         {format(new Date(date ?? ''), 'MMMM do, yyy')}
       </time>
-    </div>
-
-    <div class="sm:w-2/3">
-      <p>{whisper.intro}</p>
-    </div>
+    </p>
+    <h2
+      class="heading-2 font-[500] leading-10 text-brand-secondary-900 dark:text-brand-primary-900"
+    >
+      {title}
+    </h2>
+    <p class="">
+      {whisper.intro}
+    </p>
   </div>
 </a>

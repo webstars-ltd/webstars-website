@@ -33,8 +33,6 @@ export const getWhispers = async (
   const headersObj = headers as { [key: string]: any };
   const count = parseInt(headersObj['total'] ?? '0', 10);
 
-  console.log('Fetched whispers:', data);
-
   return {
     whispers: data.stories,
     count,

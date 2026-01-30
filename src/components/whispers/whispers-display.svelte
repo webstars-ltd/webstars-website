@@ -19,6 +19,9 @@
     }
   }
 
+
+  export let intro: string = '';
+
   let loading: boolean = true;
   let whispers: Whisper[] = [];
 
@@ -60,6 +63,12 @@
   onMount(async () => {
     const whispersData = await loadWhispers();
     whispers = whispersData?.whispers;
+
+    // Filter out current url if needed
+    const currentUrl = window.location.pathname;
+    
+    whispers = whispers.filter(whisper => `/${whisper.full_slug}` !== currentUrl);
+    
     loading = false;
 
     // Initialize scroll state after data loads
@@ -73,10 +82,16 @@
       <div class="py-20">
         <LoadingSpinner />
       </div>
-    {:else}
+    {:else if whispers.length > 0}
       <!-- Navigation Arrows -->
-      <div class="flex justify-end items-center mb-6 sm:mt-24">
-        <div class="flex gap-2">
+      <div class="flex {intro ? "justify-between" : "justify-end"} items-start mb-6 sm:mt-24">
+        {#if intro}
+          <p class="text-sm w-2/3 sm:w-4/5 text-brand-dark-500">
+            {@html intro}
+          </p>
+        {/if}
+
+        <div class="flex gap-2 items-center">
           <button
             class="
               w-10 h-10
@@ -145,6 +160,8 @@
       </div>
 
       <!-- Carousel Container -->
+      <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
+      <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
       <div
         class="
           overflow-x-auto

@@ -16,12 +16,14 @@ import {
   getStaticPageParams,
   getStoryblokPageData,
   isPageNotFound,
+storyblokApi,
 } from "@lib/api";
 
 import BaseLayout from "@layouts/base-layout.astro";
 import SEOMeta from "@components/meta/seo-meta.astro";
 import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
 import WhispersDisplay from "@components/whispers/whispers-display.svelte";
+import LatestWhisper from "@components/whispers/latest-whisper.svelte";
 import type { MetaFields } from "@lib/types";
 
 const pageOptions: ISbStoriesParams = {
@@ -59,6 +61,11 @@ const metaFields: MetaFields = {
   title: data?.story.content.meta_title,
   description: data?.story.content.meta_description,
 };
+
+const { data: configData } = await storyblokApi("cdn/stories/global", {
+  resolve_links: "url",
+});
+const whisperIntro = configData.story?.content?.whisper_list_intro;
 ---
 
 <BaseLayout>
@@ -73,7 +80,7 @@ const metaFields: MetaFields = {
       <p class="text-center tagline text-5.25xl leading-13">{blok.tagline}</p>
     </header>
 
-    {blok?.featured_image && (
+    {blok?.featured_image && blok.featured_image?.filename && (
       <div class="ws-container">
         <figure class="bg-brand-secondary-100 mt-16 pt-32 px-10 pb-16">
           <img
@@ -85,7 +92,11 @@ const metaFields: MetaFields = {
       </div>
   )}
 
-    <WhispersDisplay client:load />
+    <LatestWhisper client:load />
+    
+    <WhispersDisplay intro={whisperIntro} client:load />
+
+    <div class="mb-20"></div>
 
     <div {...storyblokEditable(blok)}>
       {
