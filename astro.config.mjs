@@ -75,6 +75,7 @@ export default defineConfig({
 				selected_products: "components/storyblok/selected-products",
 				call_to_action: "components/storyblok/call-to-action",
 				quote: "components/storyblok/quote",
+				whisper: "components/storyblok/whisper",
 			},
 			apiOptions: {
 				region: "eu",
@@ -87,20 +88,6 @@ export default defineConfig({
 					disallow: isPreviewMode ? "/" : "",
 				},
 			],
-		}),
-		shield({
-			// sri: {
-			// 	enableMiddleware: true, // MUST be enabled for dynamic pages!
-			// 	hashesModule: modulePath, // SHOULD be set!
-			// },
-			// securityHeaders: {
-			// 	enableOnStaticPages: { provider: "netlify" },
-			// 	contentSecurityPolicy: {
-			// 		cspDirectives: {
-			// 			"frame-ancestors": "'self'",
-			// 		},
-			// 	},
-			// },
 		}),
 	],
 	vite: {

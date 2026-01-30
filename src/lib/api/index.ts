@@ -8,3 +8,4 @@ export {
 export { getInsightCategories, getInsights } from './insights';
 export { getProjects } from './projects';
 export { getProducts } from './products';
+export { getWhispers } from './whispers';

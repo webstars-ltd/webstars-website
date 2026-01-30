@@ -1,0 +1,109 @@
+---
+Astro.response.headers.set(
+  "Cache-Control",
+  "public, max-age=300, s-maxage=3600"
+);
+// Tell the CDN to treat it as fresh for 5 minutes, then return a stale version while it revalidates
+Astro.response.headers.set(
+  "Netlify-CDN-Cache-Control",
+  "public, s-maxage=604800, stale-while-revalidate=604800"
+);
+
+import { type SbBlokData, storyblokEditable } from "@storyblok/astro";
+import type { ISbStoriesParams } from "@storyblok/js";
+import { isMap } from "@lib/helpers";
+import {
+  getStaticPageParams,
+  getStoryblokPageData,
+  isPageNotFound,
+storyblokApi,
+} from "@lib/api";
+
+import BaseLayout from "@layouts/base-layout.astro";
+import SEOMeta from "@components/meta/seo-meta.astro";
+import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
+import WhispersDisplay from "@components/whispers/whispers-display.svelte";
+import LatestWhisper from "@components/whispers/latest-whisper.svelte";
+import type { MetaFields } from "@lib/types";
+
+const pageOptions: ISbStoriesParams = {
+  per_page: 40,
+  starts_with: "webstars-whispers/",
+};
+
+export async function getStaticPaths() {
+  return await getStaticPageParams(pageOptions);
+}
+
+// /whispers/ -- we're just loading the root Whispers page here
+
+if (
+  await isPageNotFound("webstars-whispers", {
+    starts_with: "webstars-whispers/",
+  })
+)
+  return Astro.redirect("/404");
+
+const { data } = await getStoryblokPageData({
+  slug: "webstars-whispers",
+  resolution: "url",
+  relations: [],
+});
+
+const blok = data?.story.content;
+const links = data?.links ?? [];
+
+let body: SbBlokData[] = [];
+
+if (blok.body && isMap<SbBlokData>(blok.body)) body = blok.body;
+
+const metaFields: MetaFields = {
+  title: data?.story.content.meta_title,
+  description: data?.story.content.meta_description,
+};
+
+const { data: configData } = await storyblokApi("cdn/stories/global", {
+  resolve_links: "url",
+});
+const whisperIntro = configData.story?.content?.whisper_list_intro;
+---
+
+<BaseLayout>
+  <SEOMeta slot="seo-tags" type="page" metaFields={metaFields} />
+  <Fragment slot="main">
+    <header class="pb-16" {...storyblokEditable(blok)}>
+      <h1
+        class="text-center text-5.5xl leading-13 text-brand-secondary-900 dark:text-brand-primary-900"
+      >
+        {blok.title}
+      </h1>
+      <p class="text-center tagline text-5.25xl leading-13">{blok.tagline}</p>
+    </header>
+
+    {blok?.featured_image && blok.featured_image?.filename && (
+      <div class="ws-container">
+        <figure class="bg-brand-secondary-100 mt-16 pt-32 px-10 pb-16">
+          <img
+            src={blok.featured_image?.filename}
+            alt={blok.featured_image?.alt}
+            class="object-fit block mx-auto w-full"
+          />
+        </figure>
+      </div>
+  )}
+
+    <LatestWhisper client:load />
+    
+    <WhispersDisplay intro={whisperIntro} client:load />
+
+    <div class="mb-20"></div>
+
+    <div {...storyblokEditable(blok)}>
+      {
+        body?.map((blok: any) => {
+          return <StoryblokComponent blok={blok} links={links} />;
+        })
+      }
+    </div>
+  </Fragment>
+</BaseLayout>

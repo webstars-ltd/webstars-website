@@ -1,0 +1,107 @@
+---
+import type { ComponentProps, WhisperContent } from "@lib/types";
+import { storyblokApi } from "@lib/api";
+import {
+  storyblokEditable,
+  renderRichText,
+  type ISbRichtext,
+} from "@storyblok/astro";
+
+import Divider from "@components/storyblok/divider.astro";
+import GlobalCta from "./global-cta.astro";
+import AuthorDetails from "@components/whispers/author-details.astro";
+import WhispersDisplay from "@components/whispers/whispers-display.svelte";
+
+const { blok, publishedDate } = Astro.props as ComponentProps;
+
+const content = blok as WhisperContent;
+
+const { data } = await storyblokApi("cdn/stories/global", {
+  resolve_links: "url",
+});
+const whisperIntro = data.story?.content?.whisper_list_intro;
+
+// title
+// tagline
+// featured_image (image)
+// content (rich text)
+// quote: any; (rich text)
+// author_byline
+// meta_title
+// meta_description
+---
+
+<header class="pb-16 max-sm:my-28" {...storyblokEditable(blok)}>
+  <div class="ws-container">
+    <h1
+      class="text-center text-5.5xl leading-tight sm:leading-13 font-sans font-semibold"
+    >
+      {content.title}
+    </h1>
+    <p
+      class="text-center tagline font-medium leading-13 text-5.25xl font-bitter text-brand-secondary-900 dark:text-brand-primary-900"
+    >
+      {content.tagline}
+    </p>
+  </div>
+</header>
+
+<!-- Project information -->
+<section class="ws-container">
+  {content?.featured_image && content.featured_image?.filename && (
+    <div class="lg:px-10 mb-24">
+      <figure class="bg-brand-secondary-100 mt-16 pt-32 px-10 pb-16">
+        <img
+          src={content.featured_image?.filename}
+          alt={content.featured_image?.alt}
+          class="object-fit block mx-auto w-full"
+        />
+      </figure>
+    </div>
+  )}
+
+  <div
+    class="grid grid-cols-1 gap-12 md:gap-8 max-sm:px-4 lg:px-10"
+  >
+    {content.author_byline && (
+      <AuthorDetails
+        byline={content.author_byline}
+        date={publishedDate}
+      />
+    )}
+      
+    {
+      content && (
+        <div
+          class="insight-content prose font-bitter max-w-none dark:text-white"
+          set:html={renderRichText(content.content as ISbRichtext)}
+        />
+      )
+    }
+  </div>
+</section>
+
+<Divider />
+
+<div class="mb-10 md:mb-32"></div>
+<div class="ws-container mb-20">
+  <div class="md:px-10">
+    {
+      content && (
+        <div
+          class="insight-cta prose prose-lg max-w-none text-center dark:text-white"
+          set:html={renderRichText(content.quote as ISbRichtext)}
+        />
+      )
+    }
+  </div>
+</div>
+
+<div class="mb-16">
+  <WhispersDisplay intro={whisperIntro} client:load />
+</div>
+
+<div class="md:ws-container mb-16">
+  <GlobalCta />
+</div>
+
