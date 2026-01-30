@@ -82,13 +82,11 @@
       <div class="py-20">
         <LoadingSpinner />
       </div>
-    {:else if whispers.length > 0}
+    {:else if whispers.length > 1}
       <!-- Navigation Arrows -->
       <div class="flex {intro ? "justify-between" : "justify-end"} items-start mb-6 sm:mt-24">
         {#if intro}
-          <p class="text-sm w-2/3 sm:w-4/5 text-brand-dark-500">
-            {@html intro}
-          </p>
+          <h3 class="heading-3 font-sans text-brand-primary-900 w-2/3 sm:w-4/5">{intro}</h3>
         {/if}
 
         <div class="flex gap-2 items-center">
