@@ -18,7 +18,7 @@ const insights = blok?.insights as any[];
       insights?.map((insight) => (
         <InsightCard
           insight={insight.content}
-          showCategories={blok?.show_categories ?? true}
+          showCategories={Boolean(blok?.show_categories) ?? true}
           href={`/insights/${insight.slug}`}
           title={insight.name ?? ''}
           version="two"
