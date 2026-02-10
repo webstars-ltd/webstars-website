@@ -9,7 +9,12 @@ Astro.response.headers.set(
   "public, s-maxage=604800, stale-while-revalidate=604800"
 );
 
-import { type SbBlokData, storyblokEditable } from "@storyblok/astro";
+import { 
+  storyblokEditable,
+  renderRichText,
+  type SbBlokData,
+  type ISbRichtext,
+} from "@storyblok/astro";
 import type { ISbStoriesParams } from "@storyblok/js";
 import { isMap } from "@lib/helpers";
 import {
@@ -93,6 +98,21 @@ const whisperIntro = configData.story?.content?.whisper_list_intro;
   )}
 
     <LatestWhisper client:load />
+
+    <!-- Quote here -->
+    <div class="ws-container mb-20">
+      <div class="md:px-10">
+        {
+          blok.quote && (
+            <div
+              class="insight-cta prose prose-lg max-w-none text-center dark:text-white"
+              set:html={renderRichText(blok.quote as ISbRichtext)}
+            />
+          )
+        }
+      </div>
+    </div>
+
     
     <WhispersDisplay intro={whisperIntro} client:load />
 
